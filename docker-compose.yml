@@ -1,0 +1,13 @@
+version: "1.0"
+services:
+  image-generate-client:
+    image: gz123123/image-generate:latest
+
+    environment:
+      - NEXT_PUBLIC_API=127.0.0.1:3001
+
+    volumes:
+      - ./public:/src/public
+    
+    ports:
+      - 3000:300
