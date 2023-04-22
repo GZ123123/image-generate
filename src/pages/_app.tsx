@@ -1,6 +1,7 @@
 //#region NODE_MODULES
 import React from "react";
 import { NextWebVitalsMetric } from "next/app";
+import { SessionProvider } from "next-auth/react";
 
 //#endregion
 //#region LIBRARIES
@@ -16,8 +17,15 @@ export function reportWebVitals(metric: NextWebVitalsMetric) {
 
 if (!process.browser) React.useLayoutEffect = React.useEffect;
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppPropsWithLayout) {
   const getLayout =
     Component.getLayout ?? ((page) => <CMainLayout>{page}</CMainLayout>);
-  return getLayout(<Component {...pageProps} />);
+  return getLayout(
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  );
 }
