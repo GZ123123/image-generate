@@ -1,8 +1,9 @@
 export interface IText {
-  id?: string;
+  id: string;
   exclude: boolean;
   multiPrompt: boolean;
   value: string;
+  weight?: number;
 }
 
 export interface IFilter {

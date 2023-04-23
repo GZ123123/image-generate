@@ -1,4 +1,6 @@
 import { signIn } from "next-auth/react";
+import { ReactElement } from "react";
+import { CCMSLayout } from "src/common/components/layouts/CCMSLayout";
 
 export default function CMS() {
   return (
@@ -9,3 +11,5 @@ export default function CMS() {
     </>
   );
 }
+
+CMS.getLayout = (page: ReactElement) => <CCMSLayout>{page}</CCMSLayout>;

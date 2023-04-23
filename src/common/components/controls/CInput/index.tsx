@@ -5,7 +5,7 @@ import { classNames } from "src/utils/class-names";
 const CInput = forwardRef<HTMLInputElement, ICInputProps<HTMLInputElement>>(
   ({ id, label, append, prepend, className, ...props }, ref) => {
     return (
-      <div className={classNames("input-group")}>
+      <div className={classNames("input-group w-full")}>
         {/* LABEL */}
         {label && <label htmlFor={id}>{label}</label>}
         {/* INPUT */}
@@ -19,10 +19,7 @@ const CInput = forwardRef<HTMLInputElement, ICInputProps<HTMLInputElement>>(
           {/* PREPEND */}
           {prepend && (
             <div
-              className={classNames(
-                "prepend flex items-center bg-transparent",
-                "px-3"
-              )}
+              className={classNames("prepend flex items-center bg-transparent")}
             >
               {prepend}
             </div>
@@ -32,7 +29,7 @@ const CInput = forwardRef<HTMLInputElement, ICInputProps<HTMLInputElement>>(
             {...props}
             id={id}
             className={classNames(
-              "grow",
+              "w-[100%]",
               "py-1 px-2",
               "border-none shadow-none outline-none bg-transparent"
             )}
@@ -40,10 +37,7 @@ const CInput = forwardRef<HTMLInputElement, ICInputProps<HTMLInputElement>>(
           {/* APPEND */}
           {append && (
             <div
-              className={classNames(
-                "append flex items-center bg-transparent",
-                "px-3"
-              )}
+              className={classNames("append flex items-center bg-transparent")}
             >
               {append}
             </div>

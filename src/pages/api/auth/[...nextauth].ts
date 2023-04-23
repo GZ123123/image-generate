@@ -12,11 +12,14 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
+        console.log("credentials: ", credentials);
         try {
           const res = await authAPI.login(
             credentials?.username as string,
             credentials?.password as string
           );
+
+          console.log(res);
 
           return {
             id: uniqueId("user-"),

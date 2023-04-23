@@ -1,3 +1,6 @@
+import { useState } from "react";
+import uniqueId from "lodash.uniqueid";
+
 import { CTabs } from "src/common/components/others";
 import { ITabItems } from "src/common/components/others/types";
 import {
@@ -7,17 +10,54 @@ import {
   MBuilderParam,
   MBuilderOutput,
 } from "../components";
-import { useState } from "react";
 import { IFilter, IParams, IText } from "src/common/interfaces";
-import uniqueId from "lodash.uniqueid";
+import { IMBuilderPageProps } from "../types";
 
-export const BuilderPage = () => {
+export const BuilderPage = ({
+  categories,
+  images,
+  params: paramOptions,
+  onSearch,
+}: IMBuilderPageProps) => {
   const [texts, setTexts] = useState<IText[]>([
     {
       id: uniqueId("text_"),
       value: "",
       exclude: false,
+      multiPrompt: true,
+    },
+    {
+      id: uniqueId("text_"),
+      value: "asd",
+      exclude: true,
+      multiPrompt: true,
+      weight: 12,
+    },
+    {
+      id: uniqueId("text_"),
+      value: "123",
+      exclude: false,
       multiPrompt: false,
+    },
+    {
+      id: uniqueId("text_"),
+      value: "zxc",
+      exclude: false,
+      multiPrompt: false,
+      weight: 12,
+    },
+    {
+      id: uniqueId("text_"),
+      value: "qwe",
+      exclude: false,
+      multiPrompt: true,
+    },
+    {
+      id: uniqueId("text_"),
+      value: "vbn",
+      exclude: false,
+      multiPrompt: true,
+      weight: 12,
     },
   ]);
   const [filters, setFilters] = useState<IFilter[]>([]);
@@ -31,7 +71,15 @@ export const BuilderPage = () => {
     },
     {
       label: "Filters",
-      component: <MBuilderFilter value={filters} onChange={setFilters} />,
+      component: (
+        <MBuilderFilter
+          categories={categories}
+          images={images}
+          onSearch={onSearch}
+          value={filters}
+          onChange={setFilters}
+        />
+      ),
     },
     {
       label: "Images",
@@ -46,7 +94,12 @@ export const BuilderPage = () => {
   return (
     <div className="flex flex-col md:flex-row lg:flex gap-4">
       <div className="w-full lg:w-1/3">
-        <MBuilderOutput texts={[]} filters={[]} images={[]} params={{}} />
+        <MBuilderOutput
+          texts={texts}
+          filters={filters}
+          image={image}
+          params={params}
+        />
       </div>
       <div className="w-full lg:w-2/3">
         <CTabs items={TabItems} />

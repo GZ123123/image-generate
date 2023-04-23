@@ -5,9 +5,5 @@
 //#endregion
 
 export const CFooter = () => {
-  return (
-    <>
-      <div>This Is Footer</div>
-    </>
-  );
+  return <></>;
 };

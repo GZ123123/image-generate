@@ -1,11 +1,13 @@
 import { ICategoryResponse } from "src/apis/category/types";
 import { IImageParams, IImageResponse } from "src/apis/image/types";
-import { IFilter } from "src/common/interfaces";
+import { IParamResponse } from "src/apis/params/type";
 
-export interface IMBuilderFilterProps {
-  categories?: ICategoryResponse[];
+export interface IMBuilderPageProps {
+  categories: ICategoryResponse[];
+
   images?: IImageResponse[];
-  value: IFilter[];
-  onChange: (data: IFilter[]) => void;
+
+  params?: IParamResponse[];
+
   onSearch: (params: IImageParams) => void;
 }

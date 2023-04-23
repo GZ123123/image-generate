@@ -9,12 +9,12 @@ export default withAuth(
       authorized: (data) => {
         console.log(data);
 
-        return true;
+        return false;
       },
     },
   }
 );
 
 export const config = {
-  matcher: ["/cms/"],
+  matcher: [],
 };

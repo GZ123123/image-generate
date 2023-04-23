@@ -5,14 +5,33 @@ import { classNames } from "src/utils/class-names";
 export const MBuilderOutput = ({
   texts,
   filters,
-  images,
+  image,
   params,
 }: IMBuilderOutputProps) => {
+  const includeText = useMemo(() => {
+    return texts
+      .filter((text) => text.value && !text.exclude)
+      .map((text) =>
+        [text.value, text.multiPrompt || text.weight ? "::" : ",", text.weight]
+          .filter(Boolean)
+          .join("")
+      );
+  }, [texts]);
+
+  const exculdeText = useMemo(() => {
+    return texts
+      .filter((text) => text.value && text.exclude)
+      .map((text) => text.value)
+      .join(", ");
+  }, [texts]);
+
   const output = useMemo(() => {
-    return [texts.join(", "), filters.join(", "), images.join(", ")]
+    const prefix = [includeText.join(" "), filters.join(", "), image]
       .filter(Boolean)
       .join(", ");
-  }, [texts, filters, images, params]);
+
+    return `${prefix} ${exculdeText.length ? `--no ${exculdeText}` : ""}`;
+  }, [includeText, exculdeText, filters, image, params]);
 
   return (
     <div>
