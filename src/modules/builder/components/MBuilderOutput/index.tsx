@@ -5,14 +5,14 @@ import { classNames } from "src/utils/class-names";
 export const MBuilderOutput = ({
   texts,
   filters,
-  image,
+  images,
   params,
 }: IMBuilderOutputProps) => {
   const includeText = useMemo(() => {
     return texts
       .filter((text) => text.value && !text.exclude)
       .map((text) =>
-        [text.value, text.multiPrompt || text.weight ? "::" : ",", text.weight]
+        [text.value, text.multiPrompt || text.weight ? "::" : "", text.weight]
           .filter(Boolean)
           .join("")
       );
@@ -25,13 +25,25 @@ export const MBuilderOutput = ({
       .join(", ");
   }, [texts]);
 
+  const includeParams = useMemo(() => {
+    return Object.keys(params).map((key: any) => {
+      const param = (params as { [key: string]: string })[key];
+
+      return;
+    });
+  }, [params]);
+
   const output = useMemo(() => {
-    const prefix = [includeText.join(" "), filters.join(", "), image]
+    const prefix = [
+      includeText.join(" "),
+      filters.join(", "),
+      images.join(", "),
+    ]
       .filter(Boolean)
       .join(", ");
 
     return `${prefix} ${exculdeText.length ? `--no ${exculdeText}` : ""}`;
-  }, [includeText, exculdeText, filters, image, params]);
+  }, [includeText, exculdeText, filters, images, params]);
 
   return (
     <div>

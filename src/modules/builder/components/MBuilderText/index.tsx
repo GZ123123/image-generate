@@ -73,11 +73,7 @@ export const MBuilderText = ({ value, onChange }: IMBuilderTextProps) => {
               {item.exclude && (
                 <div className="text-gray-500 whitespace-nowrap">--no</div>
               )}
-              <CInput
-                className="grow bg-[#F6F8FF]"
-                value={item.value}
-                onChange={handleChange(item.id)}
-              />
+              <CInput value={item.value} onChange={handleChange(item.id)} />
               {!item.exclude && (item.multiPrompt || item.weight) && (
                 <div className="text-gray-500 whitespace-nowrap">
                   :: {item.weight && item.weight}

@@ -9,7 +9,7 @@ export interface ICDropdownItem {
 export type ICDropdownItems = ICDropdownItem[];
 
 export interface ICDropdownProps {
-  className: string;
+  className?: string;
 
   children: React.ReactNode;
 

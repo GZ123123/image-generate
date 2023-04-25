@@ -5,5 +5,7 @@
 //#endregion
 
 export const CFooter = () => {
+  console.log("rerender");
+
   return <></>;
 };

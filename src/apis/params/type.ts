@@ -28,7 +28,7 @@ export interface IParamResponse {
 
   name: string;
 
-  key: string[];
+  key: string;
 
   type: PARAM_TYPE;
 }

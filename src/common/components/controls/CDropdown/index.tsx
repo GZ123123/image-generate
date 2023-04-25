@@ -9,9 +9,14 @@ export const CDropdown = ({
   className,
 }: ICDropdownProps) => {
   return (
-    <div className="relative inline-block">
-      <Menu>
-        <Menu.Button className={classNames(className, "relative")}>
+    <div className="relative inline-block text-left select-none">
+      <Menu as={React.Fragment}>
+        <Menu.Button
+          className={classNames(
+            className,
+            "relative top-[50%] transform -translate-y-[50%]"
+          )}
+        >
           {children}
         </Menu.Button>
         <Transition
@@ -23,7 +28,11 @@ export const CDropdown = ({
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items>
+          <Menu.Items
+            className={
+              "absolute right-0 origin-top-right z-50 mt-2 w-32 rounded-md dark:bg-gray-800 bg-white border dark:border-gray-900 border-gray-300 transform opacity-100 scale-100"
+            }
+          >
             {options.map((option) => (
               <Menu.Item key={option.key}>
                 {({ active }) => (
@@ -31,7 +40,7 @@ export const CDropdown = ({
                     {React.cloneElement(option.render, {
                       className: `${
                         active ? "bg-violet-500 text-white" : "text-gray-900"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`,
+                      } cursor-pointer group flex w-full items-center rounded-md px-2 py-2 text-sm`,
                     })}
                   </div>
                 )}

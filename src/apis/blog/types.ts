@@ -49,6 +49,8 @@ export interface IBlogResponse {
 
   is_public?: boolean;
 
+  created_date?: string;
+
   hashtags?: IHashtagResponse[];
 }
 
@@ -81,7 +83,9 @@ export interface IPublicBlogResponse {
 
   author: IUserResponse;
 
-  prev_blog: string;
+  hashtags?: IHashtagResponse[];
 
-  next_blog: string;
+  prev_blog: IPublicBlogsResponse;
+
+  next_blog: IPublicBlogsResponse;
 }

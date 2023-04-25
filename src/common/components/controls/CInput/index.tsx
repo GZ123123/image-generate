@@ -3,7 +3,7 @@ import { ICInputProps } from "./types";
 import { classNames } from "src/utils/class-names";
 
 const CInput = forwardRef<HTMLInputElement, ICInputProps<HTMLInputElement>>(
-  ({ id, label, append, prepend, className, ...props }, ref) => {
+  ({ id, label, append, prepend, className, error, ...props }, ref) => {
     return (
       <div className={classNames("input-group w-full")}>
         {/* LABEL */}
@@ -13,7 +13,8 @@ const CInput = forwardRef<HTMLInputElement, ICInputProps<HTMLInputElement>>(
           className={classNames(
             className,
             "flex items-stretch rounded truncate",
-            "border border-gray-300"
+            "border",
+            error?.message ? "border-pink-600" : "border-gray-300"
           )}
         >
           {/* PREPEND */}
@@ -36,15 +37,12 @@ const CInput = forwardRef<HTMLInputElement, ICInputProps<HTMLInputElement>>(
           />
           {/* APPEND */}
           {append && (
-            <div
-              className={classNames("append flex items-center bg-transparent")}
-            >
+            <div className={"append flex items-center bg-transparent"}>
               {append}
             </div>
           )}
         </div>
         {/* STATUS */}
-        {/* <span className="invisible peer-invalid:visible text-pink-600"></span> */}
       </div>
     );
   }

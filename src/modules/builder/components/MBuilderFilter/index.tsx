@@ -4,18 +4,18 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { CButton } from "src/common/components/others";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
+import { ICategoryResponse } from "src/apis/category/types";
+import { IImageResponse } from "src/apis/image/types";
 
-export const MBuilderFilter = ({
-  categories,
-  images,
-  value,
-  onChange,
-  onSearch,
-}: IMBuilderFilterProps) => {
+export const MBuilderFilter = ({ value, onChange }: IMBuilderFilterProps) => {
   const { control, handleSubmit } = useForm();
 
+  const categories: ICategoryResponse[] = [];
+
+  const images: IImageResponse[] = [];
+
   const onSubmit = handleSubmit((v) => {
-    onSearch(v);
+    console.log(v);
   });
 
   return (

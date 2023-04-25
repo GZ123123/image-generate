@@ -7,61 +7,20 @@ import {
   MBuilderText,
   MBuilderFilter,
   MBuilderImage,
-  MBuilderParam,
+  MBuilderParams,
   MBuilderOutput,
 } from "../components";
 import { IFilter, IParams, IText } from "src/common/interfaces";
 import { IMBuilderPageProps } from "../types";
 
-export const BuilderPage = ({
-  categories,
-  images,
-  params: paramOptions,
-  onSearch,
-}: IMBuilderPageProps) => {
-  const [texts, setTexts] = useState<IText[]>([
-    {
-      id: uniqueId("text_"),
-      value: "",
-      exclude: false,
-      multiPrompt: true,
-    },
-    {
-      id: uniqueId("text_"),
-      value: "asd",
-      exclude: true,
-      multiPrompt: true,
-      weight: 12,
-    },
-    {
-      id: uniqueId("text_"),
-      value: "123",
-      exclude: false,
-      multiPrompt: false,
-    },
-    {
-      id: uniqueId("text_"),
-      value: "zxc",
-      exclude: false,
-      multiPrompt: false,
-      weight: 12,
-    },
-    {
-      id: uniqueId("text_"),
-      value: "qwe",
-      exclude: false,
-      multiPrompt: true,
-    },
-    {
-      id: uniqueId("text_"),
-      value: "vbn",
-      exclude: false,
-      multiPrompt: true,
-      weight: 12,
-    },
-  ]);
+const defaultText = [
+  { id: uniqueId("text_"), value: "", exclude: false, multiPrompt: false },
+];
+
+export const BuilderPage = ({ params: paramOptions }: IMBuilderPageProps) => {
+  const [texts, setTexts] = useState<IText[]>(defaultText);
   const [filters, setFilters] = useState<IFilter[]>([]);
-  const [image, setImage] = useState<string>("");
+  const [images, setImages] = useState<string[]>([]);
   const [params, setParams] = useState<IParams>({});
 
   const TabItems: ITabItems = [
@@ -71,23 +30,21 @@ export const BuilderPage = ({
     },
     {
       label: "Filters",
-      component: (
-        <MBuilderFilter
-          categories={categories}
-          images={images}
-          onSearch={onSearch}
-          value={filters}
-          onChange={setFilters}
-        />
-      ),
+      component: <MBuilderFilter value={filters} onChange={setFilters} />,
     },
     {
       label: "Images",
-      component: <MBuilderImage value={image} onChange={setImage} />,
+      component: <MBuilderImage value={images} onChange={setImages} />,
     },
     {
       label: "Params",
-      component: <MBuilderParam value={params} onChange={setParams} />,
+      component: (
+        <MBuilderParams
+          params={paramOptions}
+          value={params}
+          onChange={setParams}
+        />
+      ),
     },
   ];
 
@@ -97,7 +54,7 @@ export const BuilderPage = ({
         <MBuilderOutput
           texts={texts}
           filters={filters}
-          image={image}
+          images={images}
           params={params}
         />
       </div>
