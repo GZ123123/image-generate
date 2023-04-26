@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import uniqueId from "lodash.uniqueid";
 
 import { CTabs } from "src/common/components/others";
@@ -10,18 +10,38 @@ import {
   MBuilderParams,
   MBuilderOutput,
 } from "../components";
-import { IFilter, IParams, IText } from "src/common/interfaces";
+import { IParams, IText } from "src/common/interfaces";
 import { IMBuilderPageProps } from "../types";
+import { IImageResponse } from "src/apis/image/types";
 
-const defaultText = [
+const defaultText = () => [
   { id: uniqueId("text_"), value: "", exclude: false, multiPrompt: false },
 ];
 
-export const BuilderPage = ({ params: paramOptions }: IMBuilderPageProps) => {
-  const [texts, setTexts] = useState<IText[]>(defaultText);
-  const [filters, setFilters] = useState<IFilter[]>([]);
+export const BuilderPage = ({ params }: IMBuilderPageProps) => {
+  const [texts, setTexts] = useState<IText[]>(defaultText());
+  const [filters, setFilters] = useState<IImageResponse[]>([]);
   const [images, setImages] = useState<string[]>([]);
-  const [params, setParams] = useState<IParams>({});
+  const [paramValues, setParamValues] = useState<IParams>({});
+
+  const paramsOptions = useMemo(() => {
+    return params?.map((param) => ({
+      ...param,
+      value: paramValues[param.name],
+    }));
+  }, [params, paramValues]);
+
+  const onParamChange = (key: string, value: string | number | boolean) => {
+    setParamValues({ ...paramValues, [key]: value });
+  };
+
+  const onReset = () => {
+    console.log("reset");
+    setTexts(defaultText());
+    setFilters([]);
+    setImages([]);
+    setParamValues({});
+  };
 
   const TabItems: ITabItems = [
     {
@@ -39,11 +59,7 @@ export const BuilderPage = ({ params: paramOptions }: IMBuilderPageProps) => {
     {
       label: "Params",
       component: (
-        <MBuilderParams
-          params={paramOptions}
-          value={params}
-          onChange={setParams}
-        />
+        <MBuilderParams params={paramsOptions} onChange={onParamChange} />
       ),
     },
   ];
@@ -55,7 +71,8 @@ export const BuilderPage = ({ params: paramOptions }: IMBuilderPageProps) => {
           texts={texts}
           filters={filters}
           images={images}
-          params={params}
+          params={paramValues}
+          onReset={onReset}
         />
       </div>
       <div className="w-full lg:w-2/3">

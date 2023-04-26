@@ -26,3 +26,7 @@ input.shadow-none:focus {
 .dark input {
   background-color: transparent;
 }
+
+.bg-magenta {
+  background-color: rgb(219 11 54 / var(--tw-bg-opacity));
+}

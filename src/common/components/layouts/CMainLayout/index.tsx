@@ -12,7 +12,7 @@ export const CMainLayout = ({ children }: PropsWithChildren) => {
       <header className="absolute inset-x-0 top-0 z-50">
         <CHeader />
       </header>
-      <main className="mt-20 container mx-auto">
+      <main className="mt-20 mx-auto">
         <div className="p-4 max-w-7xl mx-auto">{children}</div>
       </main>
       <footer>

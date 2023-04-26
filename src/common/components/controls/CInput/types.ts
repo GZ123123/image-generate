@@ -10,4 +10,6 @@ export interface ICInputProps<TElement> extends InputHTMLAttributes<TElement> {
   append?: ReactNode;
 
   error?: FieldError;
+
+  value?: any;
 }

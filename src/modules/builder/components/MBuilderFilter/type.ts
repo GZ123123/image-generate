@@ -1,6 +1,6 @@
-import { IFilter } from "src/common/interfaces";
+import { IImageResponse } from "src/apis/image/types";
 
 export interface IMBuilderFilterProps {
-  value: IFilter[];
-  onChange: (data: IFilter[]) => void;
+  value: IImageResponse[];
+  onChange: (data: IImageResponse[]) => void;
 }

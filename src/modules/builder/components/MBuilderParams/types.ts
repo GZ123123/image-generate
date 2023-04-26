@@ -8,11 +8,14 @@ export interface IMBuilderParamItem {
 
   type: PARAM_TYPE;
 
-  options?: string[];
+  options?: string[] | { value: string | number | boolean; label: string }[];
+
+  value?: string | number | boolean;
+
+  placeholder?: string;
 }
 
 export interface IMBuilderParamProps {
-  value: IParams;
   params?: IMBuilderParamItem[];
-  onChange: (data: IParams) => void;
+  onChange: (key: string, value: string | number | boolean) => void;
 }

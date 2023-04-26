@@ -14,10 +14,13 @@ import { useEffect } from "react";
 import { useToggle, useDimension } from "src/common/hooks";
 import { ICNavigationProps } from "./types";
 import Link from "next/link";
+import { useDarkMode } from "src/common/hooks/darkmode.hook";
 
 //#endregion
 
 export const CNavigationDefault = ({ items }: ICNavigationProps) => {
+  const { toggleDarkMode } = useDarkMode();
+
   const { isOpen, toggle, close } = useToggle();
 
   const dimension = useDimension();
@@ -64,7 +67,10 @@ export const CNavigationDefault = ({ items }: ICNavigationProps) => {
                   </Link>
                 ))}
 
-                <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ">
+                <a
+                  className="cursor-pointer -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={toggleDarkMode}
+                >
                   <span className="hidden gap-x-2 items-center dark:flex">
                     <SunIcon className="h-6 w-6" aria-hidden="true" />
                     <span>Switch To Light Mode</span>

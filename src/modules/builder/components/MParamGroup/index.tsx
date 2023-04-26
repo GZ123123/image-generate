@@ -1,6 +1,3 @@
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
-import { CDropdown, CInput } from "src/common/components/controls";
-import { CPopover } from "src/common/components/others";
 import { PARAM_TYPE } from "src/common/constants/enum";
 import { IMParamGroupProps } from "./type";
 import { MParamCheckbox } from "./MParamCheckbox";

@@ -5,7 +5,12 @@ export const MBuilderParams = ({ onChange, params }: IMBuilderParamProps) => {
   return (
     <div>
       {params?.map((param) => (
-        <MParamGroup key={param.name} value={12} {...param} />
+        <MParamGroup
+          {...param}
+          key={param.name}
+          value={param.value}
+          onChange={(value) => onChange(param.name, value)}
+        />
       ))}
     </div>
   );
