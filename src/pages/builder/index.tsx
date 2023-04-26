@@ -108,6 +108,4 @@ export async function getServerSideProps(): Promise<{ props: IBuilderProps }> {
   return {
     props: { fallback: { categories: categories.data, images: images.data } },
   };
-
-  // return { props: { fallback: { categories: [], images: [] } } };
 }

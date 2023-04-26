@@ -28,7 +28,7 @@ export const MParamSelect = ({
 
   return (
     <>
-      <label>
+      <label className="text-gray-500">
         {label}{" "}
         {value && (
           <span className="text-gray-500">

@@ -6,7 +6,7 @@ import { MParamSelect } from "./MParamSelect";
 
 export const MParamGroup = ({ type, ...props }: IMParamGroupProps) => {
   return (
-    <div className="flex justify-between px-4 py-2 border-b border-gray-200">
+    <div className="flex justify-between px-4 py-2 border-b border-gray-300 dark:border-gray-600">
       {(() => {
         switch (type) {
           case PARAM_TYPE.BOOLEAN:

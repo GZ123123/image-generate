@@ -2,11 +2,11 @@ import { blogAPIClient } from "src/apis/blog/client";
 import { IPublicBlogResponse } from "src/apis/blog/types";
 import { MBlogDetail } from "src/modules/blog/pages/detail";
 
-interface IBlogBySlug {
+interface IBlogBySlugProps {
   data: IPublicBlogResponse;
 }
 
-export default function BlogBySlug({ data }: any) {
+export default function BlogBySlug({ data }: IBlogBySlugProps) {
   return <MBlogDetail blog={data} />;
 }
 

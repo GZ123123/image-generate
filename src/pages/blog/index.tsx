@@ -1,18 +1,21 @@
 import { blogAPIClient } from "src/apis/blog/client";
-import { IBlogResponse, IPublicBlogsResponse } from "src/apis/blog/types";
-import { IPagination } from "src/common/interfaces";
 import { BlogPage } from "src/modules/blog/pages";
+import { SWRConfig } from "swr";
 
-export default function Blog({
-  data,
-}: {
-  data: IPagination<IPublicBlogsResponse>;
-}) {
-  return <BlogPage blogs={data.data} />;
+interface IBlogProps {
+  fallback: any;
+}
+
+export default function Blog({ fallback }: IBlogProps) {
+  return (
+    <SWRConfig value={{ fallback }}>
+      <BlogPage />
+    </SWRConfig>
+  );
 }
 
 export async function getServerSideProps() {
-  const blogs = await blogAPIClient.get({ page: 1, pages: 0, size: 20 });
+  const blogs = await blogAPIClient.get({ page: 1, pages: 0, size: 10 });
 
-  return { props: { data: blogs.data } };
+  return { props: { fallback: { blogs: blogs.data } } };
 }

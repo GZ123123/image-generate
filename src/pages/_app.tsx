@@ -8,12 +8,16 @@ import { SessionProvider } from "next-auth/react";
 import { AppPropsWithLayout } from "src/common/interfaces";
 import { CMainLayout } from "src/common/components/layouts/CMainLayout";
 
+import { Comfortaa, Inter } from "next/font/google";
+
 import "src/styles/globals.css";
 //#endregion
 
-export function reportWebVitals(metric: NextWebVitalsMetric) {
-  console.log("metric: ", metric);
-}
+const inter = Inter({ subsets: ["latin"] });
+
+// export function reportWebVitals(metric: NextWebVitalsMetric) {
+//   console.log("metric: ", metric);
+// }
 
 if (!process.browser) React.useLayoutEffect = React.useEffect;
 
@@ -25,7 +29,9 @@ export default function App({
     Component.getLayout ?? ((page) => <CMainLayout>{page}</CMainLayout>);
   return getLayout(
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <div className={inter.className}>
+        <Component {...pageProps} />
+      </div>
     </SessionProvider>
   );
 }

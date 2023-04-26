@@ -7,12 +7,12 @@ export const CNavigationMD = ({ items }: ICNavigationProps) => {
   const { toggleDarkMode } = useDarkMode();
 
   return (
-    <div className="flex gap-x-12">
+    <div className="flex gap-x-12 text-lg">
       {items.map(({ path, title }) => (
         <Link
           key={path}
           href={path}
-          className="text-sm font-semibold leading-6 text-gray-900"
+          className="hover:text-magenta hover:text-[#DB0B36] cursor-pointer text-slate-500"
         >
           {title}
         </Link>
@@ -20,7 +20,7 @@ export const CNavigationMD = ({ items }: ICNavigationProps) => {
       <button
         type="button"
         onClick={toggleDarkMode}
-        className="w-11 h-11 -m-2.5 rounded-md p-2.5 text-gray-700"
+        className="w-11 h-11 -m-2.5 rounded-md p-2.5 dark:text-white text-slate-500"
       >
         <span className="sr-only">Your Company</span>
         <SunIcon className="h-6 w-6 hidden dark:block" aria-hidden="true" />

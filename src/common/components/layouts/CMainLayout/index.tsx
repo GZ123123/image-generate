@@ -9,7 +9,7 @@ import { CHeader, CFooter } from "../base";
 export const CMainLayout = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <header className="absolute inset-x-0 top-0 z-50">
+      <header className="absolute inset-x-0 top-0 z-50 max-w-7xl mx-auto">
         <CHeader />
       </header>
       <main className="mt-20 mx-auto">

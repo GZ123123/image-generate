@@ -34,10 +34,12 @@ export const MBuilderImage = ({ value, onChange }: IMBuilderImageProps) => {
         render={({ field, fieldState }) => (
           <CInput
             {...field}
+            className="bg-[#f6f8ff] dark:bg-[#131624]"
+            placeholder="https://i.imgur.com/h9vHggg.png"
             error={fieldState.error}
             onKeyDown={handleKeyDown}
             prepend={
-              <span className="flex gap-x-2 pl-3">
+              <span className="flex gap-x-2 pl-3 text-gray-500">
                 <LinkIcon width={18} /> Image URL
               </span>
             }

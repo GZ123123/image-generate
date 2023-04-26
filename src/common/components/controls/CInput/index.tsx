@@ -14,7 +14,9 @@ const CInput = forwardRef<HTMLInputElement, ICInputProps<HTMLInputElement>>(
             className,
             "flex items-stretch rounded truncate",
             "border",
-            error?.message ? "border-pink-600" : "border-gray-300"
+            error?.message
+              ? "border-pink-600"
+              : "border-gray-300 dark:border-gray-600"
           )}
         >
           {/* PREPEND */}

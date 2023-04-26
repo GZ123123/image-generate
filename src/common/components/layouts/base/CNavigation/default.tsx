@@ -15,6 +15,7 @@ import { useToggle, useDimension } from "src/common/hooks";
 import { ICNavigationProps } from "./types";
 import Link from "next/link";
 import { useDarkMode } from "src/common/hooks/darkmode.hook";
+import { classNames } from "src/utils/class-names";
 
 //#endregion
 
@@ -33,21 +34,32 @@ export const CNavigationDefault = ({ items }: ICNavigationProps) => {
     <>
       <button
         type="button"
-        className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+        className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-white"
         onClick={toggle}
       >
         <span className="sr-only">Open main menu</span>
         <Bars3Icon className="h-6 w-6" aria-hidden="true" />
       </button>
 
-      <Dialog as="div" className="lg:hidden" open={isOpen} onClose={toggle}>
+      <Dialog
+        as="div"
+        className="lg:hidden text-lg"
+        open={isOpen}
+        onClose={toggle}
+      >
         <div className="fixed inset-0 z-50" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white py-2 px-3 sm:p-6 md:px-8 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel
+          className={classNames(
+            "fixed inset-y-0 right-0 z-50 w-full overflow-y-auto  py-2 px-3",
+            "bg-white dark:bg-[#06080b]",
+            "sm:p-6 md:px-8 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+          )}
+        >
           <div className="flex items-center justify-between">
             <CLogo />
             <button
               type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-white"
               onClick={toggle}
             >
               <span className="sr-only">Close menu</span>
@@ -61,14 +73,20 @@ export const CNavigationDefault = ({ items }: ICNavigationProps) => {
                   <Link
                     key={item.path}
                     href={item.path}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className={classNames(
+                      "block px-4 py-2 border-t hover:text-[#DB0B36] cursor-pointer",
+                      "dark:border-[#111111] border-[#DDDDDD] text-slate-500"
+                    )}
                   >
                     {item.title}
                   </Link>
                 ))}
 
                 <a
-                  className="cursor-pointer -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  className={classNames(
+                    "block px-4 py-2 border-t hover:text-[#DB0B36] cursor-pointer",
+                    "dark:border-[#111111] border-[#DDDDDD]"
+                  )}
                   onClick={toggleDarkMode}
                 >
                   <span className="hidden gap-x-2 items-center dark:flex">

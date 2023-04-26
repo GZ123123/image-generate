@@ -25,7 +25,10 @@ export const MBlogDetail = ({ blog }: { blog: IPublicBlogResponse }) => {
           </div>
         </header>
 
-        <div className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">
+        <div
+          className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
+          style={{ gridTemplateRows: "auto 1fr" }}
+        >
           <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
             <dt className="sr-only">Authors</dt>
             <dd>
@@ -52,6 +55,7 @@ export const MBlogDetail = ({ blog }: { blog: IPublicBlogResponse }) => {
               </ul>
             </dd>
           </dl>
+
           <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
             <div className="prose prose-li:my-1 prose-pre:my-2 prose-img:my-2 text-base sm:text-xl leading-normal sm:leading-relaxed max-w-none pt-10 pb-8 dark:prose-dark">
               {blog.content}
@@ -76,9 +80,9 @@ export const MBlogDetail = ({ blog }: { blog: IPublicBlogResponse }) => {
                   ))}
                 </div>
               </div>
-              <div className="md:flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
+              <div className="md:flex justify-between py-4 xl:block xl:space-y-8 xl:py-8 gap-x-2">
                 {blog.prev_blog && (
-                  <div>
+                  <div className="flex-1">
                     <h2 className="uppercase tracking-wide text-slate-500 dark:text-slate-400">
                       Previous Article
                     </h2>
@@ -90,7 +94,7 @@ export const MBlogDetail = ({ blog }: { blog: IPublicBlogResponse }) => {
                   </div>
                 )}
                 {blog.next_blog && (
-                  <div>
+                  <div className="flex-1">
                     <h2 className="uppercase tracking-wide text-slate-500 dark:text-slate-400">
                       Next Article
                     </h2>

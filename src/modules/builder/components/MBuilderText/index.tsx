@@ -11,6 +11,7 @@ import { CInput } from "src/common/components/controls";
 import { MRadioButtonGroup } from "../MRadioButtonGroup";
 import { IMBuilderTextProps } from "./types";
 import { MInputGroup } from "../MInputGroup";
+import { classNames } from "src/utils/class-names";
 
 export const MBuilderText = ({ value, onChange }: IMBuilderTextProps) => {
   const onAdd = () => {
@@ -68,12 +69,17 @@ export const MBuilderText = ({ value, onChange }: IMBuilderTextProps) => {
     <div className="p-4">
       <div className="flex flex-col gap-y-4">
         {value.map((item, index) => (
-          <div key={item.id} className="flex">
-            <label className="w-full flex items-center gap-x-2">
+          <div key={item.id} className="flex gap-x-2">
+            <label className="w-full flex items-center">
               {item.exclude && (
                 <div className="text-gray-500 whitespace-nowrap">--no</div>
               )}
-              <CInput value={item.value} onChange={handleChange(item.id)} />
+              <CInput
+                className="bg-[#f6f8ff] dark:bg-[#131624]"
+                placeholder="cute panda wearing a red hat"
+                value={item.value}
+                onChange={handleChange(item.id)}
+              />
               {!item.exclude && (item.multiPrompt || item.weight) && (
                 <div className="text-gray-500 whitespace-nowrap">
                   :: {item.weight && item.weight}
@@ -81,17 +87,33 @@ export const MBuilderText = ({ value, onChange }: IMBuilderTextProps) => {
               )}
             </label>
             {index > 0 && (
-              <CButton onClick={() => onRemove(index)} className="border-none">
-                <TrashIcon width={20} />
-              </CButton>
+              <button
+                type="button"
+                onClick={() => onRemove(index)}
+                className="border-none dark:text-gray-500 text-gray-400 hover:text-[#DB0B36] dark:hover:text-[#DB0B36]"
+              >
+                <div className="p-1">
+                  <span className="sr-only">Remove</span>
+                  <TrashIcon
+                    width={20}
+                    className="dark:text-gray-500 text-gray-400 hover:text-[#DB0B36] dark:hover:text-[#DB0B36]"
+                  />
+                </div>
+              </button>
             )}
             <CPopover
               anchor={
                 <div className="p-1">
-                  <PencilSquareIcon width={20} />
+                  <PencilSquareIcon
+                    width={20}
+                    className="dark:text-gray-500 text-gray-400 hover:text-[#DB0B36] dark:hover:text-[#DB0B36]"
+                  />
                 </div>
               }
-              className="right-0 origin-top-right absolute z-50 mt-2 w-64 rounded-md dark:bg-gray-800 bg-white border dark:border-gray-900 border-gray-300 transform opacity-100 scale-100"
+              className={classNames(
+                "right-0 origin-top-right absolute z-50 mt-2 w-64 rounded-md transform opacity-100 scale-100",
+                "dark:bg-gray-800 bg-white border dark:border-gray-900 border-gray-300"
+              )}
             >
               {({ close }) => (
                 <div className="p-3 flex flex-col gap-y-2">
@@ -126,7 +148,13 @@ export const MBuilderText = ({ value, onChange }: IMBuilderTextProps) => {
       </div>
 
       <div className="mt-4">
-        <CButton className="w-full border-dashed" onClick={onAdd}>
+        <CButton
+          className={classNames(
+            "w-full border-dashed",
+            "dark:hover:bg-gray-900 hover:bg-gray-100 border-gray-400 dark:border-gray-600"
+          )}
+          onClick={onAdd}
+        >
           <PlusCircleIcon width={18} />
           Add New Text
         </CButton>

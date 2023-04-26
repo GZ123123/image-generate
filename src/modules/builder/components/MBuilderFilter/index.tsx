@@ -1,8 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { CInput } from "src/common/components/controls";
 import { IMBuilderFilterProps } from "./type";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { CButton } from "src/common/components/others";
-import { useForm } from "react-hook-form";
 import Image from "next/image";
 import useSWR from "swr";
 import { categoryAPIClient } from "src/apis/category/client";
@@ -74,6 +75,8 @@ export const MBuilderFilter = ({ value, onChange }: IMBuilderFilterProps) => {
         <CInput
           value={q}
           onChange={onSearch}
+          className="bg-[#f6f8ff] dark:bg-[#131624]"
+          placeholder="Search Keyword..."
           prepend={<MagnifyingGlassIcon className="ml-2" width={16} />}
         />
       </div>
@@ -118,21 +121,21 @@ export const MBuilderFilter = ({ value, onChange }: IMBuilderFilterProps) => {
           >
             <div>
               <div className="w-full aspect-square overflow-hidden flex items-center bg-gray-200 dark:bg-gray-800">
-                <Image
+                <img
                   src={image.url as string}
                   alt={image.name || ""}
-                  width={100}
-                  height={150}
+                  width={"100%"}
+                  height={"100%"}
                 />
               </div>
             </div>
             <div
               className={classNames(
-                "py-1 px-2 text-sm ",
+                "py-1 px-2 text-sm capitalize",
                 selected.includes(image._id) ? "text-white" : "text-gray-500"
               )}
             >
-              {image.name}
+              {image.key}
             </div>
           </div>
         ))}

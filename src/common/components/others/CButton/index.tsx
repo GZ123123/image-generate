@@ -7,11 +7,8 @@ export const CButton = ({ children, className, ...props }: ICButton) => {
       {...props}
       className={classNames(
         className,
-        "py-1 px-2",
-        "flex gap-x-2 items-center",
-        "rounded",
-        "border-black border-[1px]",
-        "dark:border-white"
+        "py-1 px-2 flex gap-x-2 items-center rounded text-gray-500",
+        "dark:border-[#131621] border-gray-300 border-[1px]"
       )}
     >
       {children}
