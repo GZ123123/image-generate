@@ -8,6 +8,15 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   swcMinify: true,
+  redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/builder',
+        permanent: true
+      }
+    ]
+  },
   images: {
     remotePatterns: [
       {

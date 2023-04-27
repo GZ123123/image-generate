@@ -112,7 +112,7 @@ export const MBuilderFilter = ({
           </CButton>
         </div>
       ) : (
-        <div className="flex mt-4 gap-2 text-sm flex-nowrap sm:flex-wrap overflow-scroll scrollbar-hide select-none">
+        <div className="flex mt-4 gap-2 text-sm flex-nowrap sm:flex-wrap overflow-auto scrollbar-hide select-none">
           <CButton
             onClick={onSelectedClick}
             className={classNames(

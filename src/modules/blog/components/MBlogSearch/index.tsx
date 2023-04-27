@@ -5,8 +5,14 @@ import { classNames } from "src/utils/class-names";
 import { IMBlogSearchProps } from "./type";
 import { useEffect } from "react";
 import { useToggle, useDimension, useDebounce } from "src/common/hooks";
+import { Comfortaa } from "next/font/google";
 
-export const MBlogSearch = ({ onSearch }: IMBlogSearchProps) => {
+const comfortaa = Comfortaa({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
+
+export const MBlogSearch = ({ title, onSearch }: IMBlogSearchProps) => {
   const { isOpen, toggle, close } = useToggle();
 
   const dimension = useDimension();
@@ -22,11 +28,12 @@ export const MBlogSearch = ({ onSearch }: IMBlogSearchProps) => {
       <div className="flex items-start">
         <h1
           className={classNames(
-            "flex-1 text-2xl font-extrabold leading-9 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14",
+            comfortaa.className,
+            "flex-1 text-2xl font-bold leading-9 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14",
             "text-gray-900 dark:text-gray-100"
           )}
         >
-          Blog.
+          {title}
         </h1>
         <div>
           <CInput

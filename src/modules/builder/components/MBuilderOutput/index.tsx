@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import { IMBuilderOutputProps } from "./types";
 import { classNames } from "src/utils/class-names";
 import { CButton } from "src/common/components/others";
+import { useCopyToClipboard } from "src/common/hooks";
+import { CBoardIcon } from "src/common/components/icons";
 
 export const MBuilderOutput = ({
   texts,
@@ -28,7 +30,7 @@ export const MBuilderOutput = ({
   }, [texts]);
 
   const includeFilder = useMemo(() => {
-    return filters.map((filter) => filter.key);
+    return filters.map((filter) => filter.key?.toLocaleLowerCase());
   }, [filters]);
 
   const includeParams = useMemo(() => {
@@ -58,33 +60,17 @@ export const MBuilderOutput = ({
       .filter(Boolean)
       .join(", ");
 
-    return `${prefix} ${exculdeText.length ? `--no ${exculdeText}` : ""}`;
+    return `/imagine prompt: ${prefix} ${
+      exculdeText.length ? `--no ${exculdeText}` : ""
+    }`;
   }, [includeText, exculdeText, filters, images, params]);
 
-  const onCopy = () => {
-    navigator.clipboard.writeText(output.trim());
-  };
+  const { copy } = useCopyToClipboard(output);
 
   return (
     <div>
       <div className="pt-1 h-11 pb-3 px-4 text-lg text-gray-400  flex gap-2 items-center">
-        <svg
-          stroke="currentColor"
-          fill="none"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          height="24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M2 20a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1"></path>
-          <path d="M4 18l-1 -3h18l-1 3"></path>
-          <path d="M11 12h7l-7 -9v9"></path>
-          <path d="M8 7l-2 5"></path>
-        </svg>
+        <CBoardIcon />
         <h1>Midjourney Prompt Builder v5</h1>
       </div>
       <div
@@ -94,7 +80,7 @@ export const MBuilderOutput = ({
           "dark:bg-gray-900 dark:border-[#131621]"
         )}
       >
-        <label id="output">/imagine prompt: {output}</label>
+        <label id="output">{output}</label>
 
         <div className="flex items-center mt-2">
           <div className="flex-1 ">
@@ -115,7 +101,7 @@ export const MBuilderOutput = ({
           </div>
           <CButton
             className="rounded py-1 px-3 bg-magenta text-white flex items-center justify-center gap-2"
-            onClick={onCopy}
+            onClick={copy}
           >
             <svg
               stroke="currentColor"

@@ -37,7 +37,7 @@ export const MBlogTags = () => {
 
   return (
     <div className="pb-16 pt-2 sm:pt-0">
-      <MBlogSearch onSearch={onSearch} />
+      <MBlogSearch title={query.slug as string} onSearch={onSearch} />
 
       <div className="mt-4 border-t border-gray-200 dark:border-gray-700">
         <ul>

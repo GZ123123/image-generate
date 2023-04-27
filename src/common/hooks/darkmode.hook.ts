@@ -23,14 +23,11 @@ export const useDarkMode = () => {
 
   useEffect(() => {
     const element = document.querySelector("body");
-
     if (isDark) {
       localStorage.setItem("mode", "dark");
-
       element?.classList.add("dark");
     } else {
       localStorage.setItem("mode", "light");
-
       element?.classList.remove("dark");
     }
   }, [isDark]);

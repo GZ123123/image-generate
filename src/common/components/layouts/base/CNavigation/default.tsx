@@ -10,8 +10,7 @@ import {
   SunIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useEffect } from "react";
-import { useToggle, useDimension } from "src/common/hooks";
+import { useToggle } from "src/common/hooks";
 import { ICNavigationProps } from "./types";
 import Link from "next/link";
 import { useDarkMode } from "src/common/hooks/darkmode.hook";
@@ -22,15 +21,18 @@ import { useRouter } from "next/router";
 
 export const CNavigationDefault = ({ items }: ICNavigationProps) => {
   const router = useRouter();
+
   const { toggleDarkMode } = useDarkMode();
 
   const { isOpen, toggle, close } = useToggle();
 
-  const dimension = useDimension();
+  // const dimension = useDimension();
 
-  useEffect(() => {
-    close();
-  }, [dimension.width]);
+  // console.log(dimension);
+
+  // useEffect(() => {
+  //   close();
+  // }, [dimension.width]);
 
   return (
     <>
@@ -87,7 +89,7 @@ export const CNavigationDefault = ({ items }: ICNavigationProps) => {
                   </Link>
                 ))}
 
-                <a
+                <button
                   className={classNames(
                     "block px-4 py-2 border-t hover:text-[#DB0B36] cursor-pointer",
                     "dark:border-[#111111] border-[#DDDDDD]"
@@ -102,7 +104,7 @@ export const CNavigationDefault = ({ items }: ICNavigationProps) => {
                     <MoonIcon className="h-5 w-5 " aria-hidden="true" />
                     <span>Switch To Dark Mode</span>
                   </span>
-                </a>
+                </button>
               </div>
             </div>
           </div>

@@ -11,13 +11,11 @@ import { CMainLayout } from "src/common/components/layouts/CMainLayout";
 import { Comfortaa, Inter } from "next/font/google";
 
 import "src/styles/globals.css";
+import "react-toastify/dist/ReactToastify.css";
+import { classNames } from "src/utils/class-names";
 //#endregion
 
 const inter = Inter({ subsets: ["latin"] });
-
-// export function reportWebVitals(metric: NextWebVitalsMetric) {
-//   console.log("metric: ", metric);
-// }
 
 if (!process.browser) React.useLayoutEffect = React.useEffect;
 
@@ -29,7 +27,7 @@ export default function App({
     Component.getLayout ?? ((page) => <CMainLayout>{page}</CMainLayout>);
   return getLayout(
     <SessionProvider session={session}>
-      <div className={inter.className}>
+      <div className={classNames(inter.className)}>
         <Component {...pageProps} />
       </div>
     </SessionProvider>

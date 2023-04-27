@@ -5,7 +5,7 @@ export interface IRouteItem {
 
 export const ROUTES = {
   INDEX: {
-    path: "/",
+    path: "/builder",
     title: "Homepage",
   },
   BLOG: {
@@ -19,5 +19,9 @@ export const ROUTES = {
   RESOURCES: {
     path: "/resources",
     title: "Resources",
+  },
+  GENERATE: {
+    path: "/generate",
+    title: "Generate",
   },
 };

@@ -1,5 +1,12 @@
 import Link from "next/link";
 import { IMBlogArticleProps } from "./type";
+import { Comfortaa } from "next/font/google";
+import { classNames } from "src/utils/class-names";
+
+const comfortaa = Comfortaa({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
 
 export const MBlogArticle = ({ blog }: IMBlogArticleProps) => {
   return (
@@ -14,7 +21,12 @@ export const MBlogArticle = ({ blog }: IMBlogArticleProps) => {
       </dl>
       <div className="space-y-3 xl:col-span-3">
         <div>
-          <h3 className="text-2xl font-bold leading-8 pb-2">
+          <h3
+            className={classNames(
+              comfortaa.className,
+              "text-2xl font-bold leading-8 pb-2"
+            )}
+          >
             <Link
               className="text-gray-900 dark:text-gray-100"
               href={`/blog/${blog.slug}`}
