@@ -2,9 +2,8 @@
 
 import { CInput } from "src/common/components/controls";
 import { IMBuilderFilterProps } from "./type";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import { CButton } from "src/common/components/others";
-import Image from "next/image";
 import useSWR from "swr";
 import { categoryAPIClient } from "src/apis/category/client";
 import { useMemo, useState } from "react";
@@ -13,10 +12,14 @@ import { useDebounce } from "src/common/hooks";
 import { classNames } from "src/utils/class-names";
 import { IImageResponse } from "src/apis/image/types";
 
-export const MBuilderFilter = ({ value, onChange }: IMBuilderFilterProps) => {
-  const [q, setQ] = useState<string | null>();
+export const MBuilderFilter = ({
+  initialCategory,
+  value,
+  onChange,
+}: IMBuilderFilterProps) => {
+  const [q, setQ] = useState<string>("");
 
-  const [category, setCategory] = useState<string | null>();
+  const [category, setCategory] = useState<string>(initialCategory);
 
   const { data: categories } = useSWR("categories", () =>
     categoryAPIClient.get().then((res) => res.data)
@@ -33,8 +36,12 @@ export const MBuilderFilter = ({ value, onChange }: IMBuilderFilterProps) => {
       return null;
     },
     () => {
+      if (q) {
+        return imageAPIClient.get({ q }).then((res) => res.data);
+      }
+
       return imageAPIClient
-        .get({ category_id: category as string, q: q as string })
+        .get({ category_id: category })
         .then((res) => res.data);
     }
   );
@@ -48,12 +55,12 @@ export const MBuilderFilter = ({ value, onChange }: IMBuilderFilterProps) => {
   }, [value, data, category]);
 
   const onSearch = (v: any) => {
-    setCategory(null);
+    setCategory(initialCategory);
     setQ(v.target.value);
   };
 
   const onFilter = useDebounce((v: string) => {
-    setQ(null);
+    setQ("");
     setCategory(v);
   }, 200);
 
@@ -75,38 +82,77 @@ export const MBuilderFilter = ({ value, onChange }: IMBuilderFilterProps) => {
         <CInput
           value={q}
           onChange={onSearch}
-          className="bg-[#f6f8ff] dark:bg-[#131624]"
+          className="bg-[#f6f8ff] dark:bg-[#131624] px-2"
           placeholder="Search Keyword..."
           prepend={<MagnifyingGlassIcon className="ml-2" width={16} />}
+          append={
+            <button
+              className={classNames(
+                "px-2 text-sm rounded-md border hover:bg-gray-200 bg-white hover:text-gray-900 rounded-sm",
+                "dark:text-gray-900 dark:bg-gray-600 hover:dark:bg-gray-500 dark:hover:text-black dark:border-gray-900 border-gray-300"
+              )}
+              onClick={() => onFilter(initialCategory)}
+            >
+              clear
+            </button>
+          }
         />
       </div>
-      <div className="flex mt-4 gap-2 text-sm flex-nowrap sm:flex-wrap overflow-scroll scrollbar-hide select-none">
-        <CButton
-          onClick={onSelectedClick}
-          className={classNames(
-            category == "__selected__"
-              ? " dark:bg-gray-500 bg-gray-600 dark:text-gray-900 text-white"
-              : "dark:bg-[#131624] bg-gray-200 dark:text-gray-400 text-gray-500 hover:text-[#DB0B36] dark:hover:text-[#DB0B36]",
-            "border border-gray-300 dark:border-gray-600 flex items-center gap-1  px-2 py-1 rounded-md min-w-fit cursor-pointer drop-shadow"
-          )}
-        >
-          Selected ({value.length})
-        </CButton>
-        {categories?.map(({ _id, name }) => (
+      {q ? (
+        <div className="mt-4 text-sm flex">
           <CButton
-            key={_id}
-            onClick={() => onFilter(_id)}
             className={classNames(
-              _id === category
+              "flex items-center gap-1 rounded-md min-w-fit cursor-pointer drop-shadow",
+              "border border-gray-300 dark:border-gray-600 dark:bg-gray-500 bg-gray-600 dark:text-gray-900 text-white py-0"
+            )}
+            onClick={() => onFilter(initialCategory)}
+          >
+            <XCircleIcon width={18} />
+            Search Results ({images?.length || 0})
+          </CButton>
+        </div>
+      ) : (
+        <div className="flex mt-4 gap-2 text-sm flex-nowrap sm:flex-wrap overflow-scroll scrollbar-hide select-none">
+          <CButton
+            onClick={onSelectedClick}
+            className={classNames(
+              category == "__selected__"
                 ? " dark:bg-gray-500 bg-gray-600 dark:text-gray-900 text-white"
                 : "dark:bg-[#131624] bg-gray-200 dark:text-gray-400 text-gray-500 hover:text-[#DB0B36] dark:hover:text-[#DB0B36]",
               "border border-gray-300 dark:border-gray-600 flex items-center gap-1  px-2 py-1 rounded-md min-w-fit cursor-pointer drop-shadow"
             )}
           >
-            {name}
+            Selected ({value.length})
           </CButton>
-        ))}
-      </div>
+          {categories?.map(({ _id, name, image }) => (
+            <CButton
+              key={_id}
+              onClick={() => onFilter(_id)}
+              className={classNames(
+                _id === category
+                  ? " dark:bg-gray-500 bg-gray-600 dark:text-gray-900 text-white"
+                  : "dark:bg-[#131624] bg-gray-200 dark:text-gray-400 text-gray-500 hover:text-[#DB0B36] dark:hover:text-[#DB0B36]",
+                "border border-gray-300 dark:border-gray-600 flex items-center gap-1  px-2 py-1 rounded-md min-w-fit cursor-pointer drop-shadow"
+              )}
+            >
+              <img
+                src={image}
+                alt=""
+                width={20}
+                height={20}
+                className="filter-none dark:filter invert"
+              />
+              {/* <div
+                className="logo w-[20px] h-[20px]"
+                style={{
+                  mask: `url('${image}')`,
+                }}
+              ></div> */}
+              {name}
+            </CButton>
+          ))}
+        </div>
+      )}
       <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
         {images?.map((image) => (
           <div

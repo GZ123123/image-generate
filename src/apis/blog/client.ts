@@ -19,4 +19,13 @@ export const blogAPIClient = {
   getBySlug(slug: string): Promise<IAPIResponse<IPublicBlogResponse>> {
     return http.get(`blogs/client/${slug}`);
   },
+
+  getByHashtag(
+    slug: string,
+    params: IPublicBlogParams
+  ): Promise<IPaginationResponse<IPublicBlogsResponse>> {
+    return http.get(`/blogs/client/hashtag/${slug}`, {
+      params: { ...params, pages: 0, size: 10 },
+    });
+  },
 };

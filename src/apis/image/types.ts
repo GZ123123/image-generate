@@ -2,7 +2,7 @@ import { IPaginationParams, ISearchParams } from "src/common/interfaces";
 import { ICategoryResponse } from "../category/types";
 
 export interface IPublicImageParams extends ISearchParams {
-  category_id: string;
+  category_id?: string;
 }
 
 export interface IImageParams extends IPaginationParams, ISearchParams {}

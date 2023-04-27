@@ -16,10 +16,12 @@ import { ICNavigationProps } from "./types";
 import Link from "next/link";
 import { useDarkMode } from "src/common/hooks/darkmode.hook";
 import { classNames } from "src/utils/class-names";
+import { useRouter } from "next/router";
 
 //#endregion
 
 export const CNavigationDefault = ({ items }: ICNavigationProps) => {
+  const router = useRouter();
   const { toggleDarkMode } = useDarkMode();
 
   const { isOpen, toggle, close } = useToggle();
@@ -75,7 +77,10 @@ export const CNavigationDefault = ({ items }: ICNavigationProps) => {
                     href={item.path}
                     className={classNames(
                       "block px-4 py-2 border-t hover:text-[#DB0B36] cursor-pointer",
-                      "dark:border-[#111111] border-[#DDDDDD] text-slate-500"
+                      "dark:border-[#111111] border-[#DDDDDD] text-slate-500",
+                      router.pathname === item.path
+                        ? "dark:text-white text-black"
+                        : ""
                     )}
                   >
                     {item.title}

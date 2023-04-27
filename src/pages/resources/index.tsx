@@ -1,11 +1,22 @@
-import { signIn } from "next-auth/react";
+import { categoryAPIClient } from "src/apis/category/client";
+import MResourcesPage from "src/modules/resources/pages";
+import { SWRConfig } from "swr";
 
-export default function Resources() {
+export default function Resources({ categories, fallback }: any) {
   return (
-    <>
-      <button className="text-green-600" onClick={() => signIn()}>
-        Sign In
-      </button>
-    </>
+    <SWRConfig value={{ fallback }}>
+      <MResourcesPage categories={categories} />
+    </SWRConfig>
   );
+}
+
+export async function getServerSideProps(): Promise<any> {
+  const categories = await categoryAPIClient.get();
+
+  return {
+    props: {
+      categories: categories.data,
+      fallback: { categories: categories.data },
+    },
+  };
 }

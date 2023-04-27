@@ -2,8 +2,12 @@ import Link from "next/link";
 import { ICNavigationProps } from "./types";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { useDarkMode } from "src/common/hooks/darkmode.hook";
+import { useRouter } from "next/router";
+import { classNames } from "src/utils/class-names";
 
 export const CNavigationMD = ({ items }: ICNavigationProps) => {
+  const router = useRouter();
+
   const { toggleDarkMode } = useDarkMode();
 
   return (
@@ -12,7 +16,10 @@ export const CNavigationMD = ({ items }: ICNavigationProps) => {
         <Link
           key={path}
           href={path}
-          className="hover:text-magenta hover:text-[#DB0B36] cursor-pointer text-slate-500"
+          className={classNames(
+            "hover:text-magenta hover:text-[#DB0B36] cursor-pointer text-slate-500",
+            router.pathname === path ? "dark:text-white text-black" : ""
+          )}
         >
           {title}
         </Link>

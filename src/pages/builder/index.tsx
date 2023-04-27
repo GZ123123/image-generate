@@ -1,15 +1,14 @@
-import { SWRConfig } from "swr";
+import { SWRConfig, unstable_serialize } from "swr";
 
 import { categoryAPIClient } from "src/apis/category/client";
 import { imageAPIClient } from "src/apis/image/client";
 import { BuilderPage } from "src/modules/builder/pages";
-import { ICategoryResponse } from "src/apis/category/types";
-import { IImageResponse } from "src/apis/image/types";
 import { PARAM_TYPE } from "src/common/constants/enum";
 import { IMBuilderParamItem } from "src/modules/builder/components/types";
 
 interface IBuilderProps {
-  fallback: { categories: ICategoryResponse[]; images: IImageResponse[] };
+  initialCategory: string;
+  fallback: { [key: string]: any };
 }
 
 const params: IMBuilderParamItem[] = [
@@ -90,10 +89,10 @@ const params: IMBuilderParamItem[] = [
   },
 ];
 
-export default function Builder({ fallback }: IBuilderProps) {
+export default function Builder({ initialCategory, fallback }: IBuilderProps) {
   return (
     <SWRConfig value={{ fallback }}>
-      <BuilderPage params={params} />
+      <BuilderPage initialCategory={initialCategory} params={params} />
     </SWRConfig>
   );
 }
@@ -101,11 +100,18 @@ export default function Builder({ fallback }: IBuilderProps) {
 export async function getServerSideProps(): Promise<{ props: IBuilderProps }> {
   const categories = await categoryAPIClient.get();
 
-  const initCategory = categories.data[0]._id;
+  const initialCategory = categories.data[0]._id;
 
-  const images = await imageAPIClient.get({ category_id: initCategory });
+  const images = await imageAPIClient.get({ category_id: initialCategory });
 
   return {
-    props: { fallback: { categories: categories.data, images: images.data } },
+    props: {
+      initialCategory: initialCategory,
+      fallback: {
+        [unstable_serialize(["blogs", "category", initialCategory])]:
+          categories.data,
+        images: images.data,
+      },
+    },
   };
 }

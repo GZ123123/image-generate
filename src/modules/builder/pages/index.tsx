@@ -18,7 +18,10 @@ const defaultText = () => [
   { id: uniqueId("text_"), value: "", exclude: false, multiPrompt: false },
 ];
 
-export const BuilderPage = ({ params }: IMBuilderPageProps) => {
+export const BuilderPage = ({
+  initialCategory,
+  params,
+}: IMBuilderPageProps) => {
   const [texts, setTexts] = useState<IText[]>(defaultText());
   const [filters, setFilters] = useState<IImageResponse[]>([]);
   const [images, setImages] = useState<string[]>([]);
@@ -36,7 +39,6 @@ export const BuilderPage = ({ params }: IMBuilderPageProps) => {
   };
 
   const onReset = () => {
-    console.log("reset");
     setTexts(defaultText());
     setFilters([]);
     setImages([]);
@@ -50,7 +52,13 @@ export const BuilderPage = ({ params }: IMBuilderPageProps) => {
     },
     {
       label: "Filters",
-      component: <MBuilderFilter value={filters} onChange={setFilters} />,
+      component: (
+        <MBuilderFilter
+          initialCategory={initialCategory}
+          value={filters}
+          onChange={setFilters}
+        />
+      ),
     },
     {
       label: "Images",
