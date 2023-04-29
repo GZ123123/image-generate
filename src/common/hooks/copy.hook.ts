@@ -6,17 +6,14 @@ export const useCopyToClipboard = (text: string) => {
   const { isDark } = useDarkMode();
 
   const alert = useCallback(
-    (text: string) => {
-      console.log(isDark ? "dark" : "light");
-      toast.success(text, { theme: isDark ? "dark" : "light" });
-    },
+    (text: string) => toast.success(text, { theme: isDark ? "dark" : "light" }),
     [isDark]
   );
 
   const copy = useCallback(() => {
     navigator.clipboard.writeText(text.trim());
     alert("success");
-  }, [text]);
+  }, [text, alert]);
 
   return { copy };
 };

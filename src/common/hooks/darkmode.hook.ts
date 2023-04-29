@@ -1,36 +1,34 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useMemo } from "react";
+import { useLocalStorage } from ".";
 
-let initial: boolean = false;
-
-if (typeof window !== "undefined") {
+const setBodyMode = (mode: boolean) => {
   const element = document.querySelector("body");
 
-  initial = localStorage?.getItem("mode") === "dark";
-
-  if (initial) {
-    element?.classList.add("dark");
-  } else {
-    element?.classList.remove("dark");
+  if (!element) {
+    return;
   }
+
+  if (mode && !element.classList.contains("dark")) {
+    element.classList.add("dark");
+  } else if (element.classList.contains("dark")) {
+    element.classList.remove("dark");
+  }
+};
+
+if (typeof window !== "undefined") {
+  const initial = JSON.parse(localStorage?.getItem("mode") || "") === "dark";
+  setBodyMode(initial);
 }
 
 export const useDarkMode = () => {
-  const [isDark, setMode] = useState<boolean | null>(initial);
+  const [mode, setMode] = useLocalStorage("mode");
+
+  const isDark = useMemo(() => mode === "dark", [mode]);
 
   const toggleDarkMode = useCallback(() => {
-    setMode(!isDark);
-  }, [isDark]);
-
-  useEffect(() => {
-    const element = document.querySelector("body");
-    if (isDark) {
-      localStorage.setItem("mode", "dark");
-      element?.classList.add("dark");
-    } else {
-      localStorage.setItem("mode", "light");
-      element?.classList.remove("dark");
-    }
-  }, [isDark]);
+    setMode(mode !== "dark" ? "dark" : "light");
+    setBodyMode(mode !== "dark");
+  }, [mode]);
 
   return { isDark, toggleDarkMode };
 };

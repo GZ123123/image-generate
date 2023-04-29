@@ -86,15 +86,17 @@ export const MBuilderFilter = ({
           placeholder="Search Keyword..."
           prepend={<MagnifyingGlassIcon className="ml-2" width={16} />}
           append={
-            <button
-              className={classNames(
-                "px-2 text-sm rounded-md border hover:bg-gray-200 bg-white hover:text-gray-900 rounded-sm",
-                "dark:text-gray-900 dark:bg-gray-600 hover:dark:bg-gray-500 dark:hover:text-black dark:border-gray-900 border-gray-300"
-              )}
-              onClick={() => onFilter(initialCategory)}
-            >
-              clear
-            </button>
+            q && (
+              <button
+                className={classNames(
+                  "px-2 text-sm rounded-md border hover:bg-gray-200 bg-white hover:text-gray-900 rounded-sm",
+                  "dark:text-gray-200 dark:bg-gray-600 hover:dark:bg-gray-500 dark:hover:text-black dark:border-gray-900 border-gray-300"
+                )}
+                onClick={() => onFilter(initialCategory)}
+              >
+                Clear
+              </button>
+            )
           }
         />
       </div>

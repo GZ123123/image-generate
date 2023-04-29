@@ -1,6 +1,5 @@
 //#region NODE_MODULES
 import React from "react";
-import { NextWebVitalsMetric } from "next/app";
 import { SessionProvider } from "next-auth/react";
 
 //#endregion
@@ -8,14 +7,11 @@ import { SessionProvider } from "next-auth/react";
 import { AppPropsWithLayout } from "src/common/interfaces";
 import { CMainLayout } from "src/common/components/layouts/CMainLayout";
 
-import { Comfortaa, Inter } from "next/font/google";
-
 import "src/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { classNames } from "src/utils/class-names";
+import { inter } from "src/common/fonts";
 //#endregion
-
-const inter = Inter({ subsets: ["latin"] });
 
 if (!process.browser) React.useLayoutEffect = React.useEffect;
 
@@ -25,6 +21,7 @@ export default function App({
 }: AppPropsWithLayout) {
   const getLayout =
     Component.getLayout ?? ((page) => <CMainLayout>{page}</CMainLayout>);
+
   return getLayout(
     <SessionProvider session={session}>
       <div className={classNames(inter.className)}>

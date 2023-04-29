@@ -28,3 +28,13 @@ export interface IImageResponse {
 
   category?: ICategoryResponse;
 }
+
+export interface IImageUploadResponse {
+  _id: string;
+
+  key: string;
+
+  e_tag: string;
+
+  url: string;
+}

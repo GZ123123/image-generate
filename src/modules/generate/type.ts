@@ -1,11 +1,5 @@
 export interface IMGeneratePageProps {
-  value: IMGenerateData[];
+  value: string;
 
-  onChange: (args: IMGenerateData[]) => void;
-}
-
-export interface IMGenerateData {
-  url: string;
-
-  text: string;
+  onChange: (args: string) => void;
 }

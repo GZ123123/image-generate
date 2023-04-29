@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { IMBlogArticleProps } from "./type";
-import { Comfortaa } from "next/font/google";
 import { classNames } from "src/utils/class-names";
-
-const comfortaa = Comfortaa({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+import { comfortaa } from "src/common/fonts";
 
 export const MBlogArticle = ({ blog }: IMBlogArticleProps) => {
   return (

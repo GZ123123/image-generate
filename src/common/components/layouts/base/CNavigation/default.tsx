@@ -10,12 +10,13 @@ import {
   SunIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useToggle } from "src/common/hooks";
+import { useDimension, useToggle } from "src/common/hooks";
 import { ICNavigationProps } from "./types";
 import Link from "next/link";
 import { useDarkMode } from "src/common/hooks/darkmode.hook";
 import { classNames } from "src/utils/class-names";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 //#endregion
 
@@ -26,13 +27,11 @@ export const CNavigationDefault = ({ items }: ICNavigationProps) => {
 
   const { isOpen, toggle, close } = useToggle();
 
-  // const dimension = useDimension();
+  const dimension = useDimension();
 
-  // console.log(dimension);
-
-  // useEffect(() => {
-  //   close();
-  // }, [dimension.width]);
+  useEffect(() => {
+    close();
+  }, [dimension.width]);
 
   return (
     <>
@@ -73,19 +72,19 @@ export const CNavigationDefault = ({ items }: ICNavigationProps) => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                {items.map((item) => (
+                {items.map(({ path, title }) => (
                   <Link
-                    key={item.path}
-                    href={item.path}
+                    key={path}
+                    href={path}
                     className={classNames(
                       "block px-4 py-2 border-t hover:text-[#DB0B36] cursor-pointer",
-                      "dark:border-[#111111] border-[#DDDDDD] text-slate-500",
-                      router.pathname === item.path
+                      "dark:border-[#111111] border-[#DDDDDD]",
+                      router.pathname === path
                         ? "dark:text-white text-black"
-                        : ""
+                        : "text-slate-500"
                     )}
                   >
-                    {item.title}
+                    {title}
                   </Link>
                 ))}
 

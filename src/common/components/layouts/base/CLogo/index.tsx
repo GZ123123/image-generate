@@ -1,13 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { Comfortaa } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { comfortaa } from "src/common/fonts";
 import { classNames } from "src/utils/class-names";
-
-const comfortaa = Comfortaa({
-  weight: "400",
-  subsets: ["latin"],
-});
 
 export const CLogo = () => {
   return (

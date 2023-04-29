@@ -5,12 +5,7 @@ import { classNames } from "src/utils/class-names";
 import { IMBlogSearchProps } from "./type";
 import { useEffect } from "react";
 import { useToggle, useDimension, useDebounce } from "src/common/hooks";
-import { Comfortaa } from "next/font/google";
-
-const comfortaa = Comfortaa({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+import { comfortaa } from "src/common/fonts";
 
 export const MBlogSearch = ({ title, onSearch }: IMBlogSearchProps) => {
   const { isOpen, toggle, close } = useToggle();

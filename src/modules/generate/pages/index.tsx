@@ -1,97 +1,108 @@
-import { CInput } from "src/common/components/controls";
 import { Controller, useForm } from "react-hook-form";
-import { generateAPIClient } from "src/apis/generate/client";
 import { IMGeneratePageProps } from "../type";
-import { LinkIcon } from "@heroicons/react/24/outline";
-import { urlResolver } from "../validate";
-import { useState } from "react";
-import { CCopy } from "src/common/components/others/CCopy";
+import { CUpload } from "src/common/components/controls/CUpload";
+import { useMutation } from "src/common/hooks/mutation.hook";
+import { imageAPIClient } from "src/apis/image/client";
+import { CButton } from "src/common/components/others";
+import { generateAPIClient } from "src/apis/generate/client";
+import { classNames } from "src/utils/class-names";
+import { promptResolver } from "../validate";
+import { useCopyToClipboard } from "src/common/hooks";
+import { CSpinner } from "src/common/components/others/CSpinner";
 
 export const MGeneratePage = ({ value, onChange }: IMGeneratePageProps) => {
-  const { control, handleSubmit, reset } = useForm({
-    defaultValues: { image: "" },
-    resolver: urlResolver,
+  const { isLoading, mutation } = useMutation(
+    async (image: File): Promise<string | undefined> => {
+      try {
+        const {
+          data: { url },
+        } = await imageAPIClient.upload(image);
+
+        const {
+          data: { text },
+        } = await generateAPIClient.imageToText(url);
+
+        return text;
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  );
+
+  const { control, handleSubmit } = useForm({
+    defaultValues: { image: undefined },
+    resolver: promptResolver,
   });
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { copy } = useCopyToClipboard(value);
 
-  const onSearch = handleSubmit(async ({ image }) => {
-    const searched = value.find((item) => item.url === "image");
+  const onSubmit = handleSubmit(
+    async ({ image }) => {
+      const data = await mutation(image);
 
-    if (searched) {
-      return searched.text;
+      data && onChange(data);
+    },
+    (e) => {
+      console.log(e);
     }
-
-    setIsLoading(true);
-    try {
-      const { data } = await generateAPIClient.imageToText(image);
-
-      onChange([{ url: image, text: data.text }, ...value]);
-    } finally {
-      setIsLoading(false);
-    }
-  });
-
-  const handleKeyDown = (e: any) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      return onSearch();
-    }
-  };
+  );
 
   return (
-    <div>
-      <Controller
-        control={control}
-        name="image"
-        render={({ field, fieldState }) => (
-          <CInput
-            {...field}
-            className="bg-[#f6f8ff] dark:bg-[#131624]"
-            placeholder="https://i.imgur.com/h9vHggg.png"
-            error={fieldState.error}
-            onKeyDown={handleKeyDown}
-            prepend={
-              <span className="flex gap-x-2 pl-3 text-gray-500">
-                <LinkIcon width={18} /> Image URL
-              </span>
-            }
-            append={
-              field.value && (
-                <span
-                  className="cursor-pointer mx-3 border-[1px] border-gray-300 text-gray-700 px-3 bg-white rounded text-sm"
-                  onClick={onSearch}
-                >
-                  Add Image
-                </span>
-              )
-            }
-          />
-        )}
-      />
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 false">
-        {value.map((item) => (
-          <div
-            key={item.url}
-            className="dark:bg-[#131624] bg-gray-200 rounded-md overflow-hidden cursor-pointer select-none"
-          >
-            <CCopy text={item.text}>
-              <div>
-                <div className="w-full aspect-square overflow-hidden flex items-center bg-gray-200 dark:bg-gray-800">
-                  <img
-                    className="object-cover w-full"
-                    src={item.url}
-                    alt={""}
-                  />
-                </div>
-                <div className="py-1 px-2 text-sm text-gray-500">
-                  {item.text}
-                </div>
+    <div className="flex gap-x-8">
+      <div className="w-1/3">
+        <div className="max-w-[350px] mx-auto">
+          <div className="relative">
+            <Controller
+              control={control}
+              name="image"
+              render={({ field }) => (
+                <CUpload disabled={isLoading} id="file-upload" {...field} />
+              )}
+            />
+            {isLoading && (
+              <div className="absolute w-full h-full bg-gray-900 top-0 left-0 bg-opacity-20 flex justify-center items-center cursor-wait">
+                <CSpinner />
               </div>
-            </CCopy>
+            )}
           </div>
-        ))}
+          <div className="mt-4 px-6">
+            <CButton
+              className={classNames(
+                "w-full justify-center",
+                "dark:bg-gray-500 bg-gray-600 dark:text-gray-200 text-white",
+                "border border-gray-300 dark:border-gray-600 flex items-center gap-1 rounded-md min-w-fit cursor-pointer drop-shadow"
+              )}
+              onClick={onSubmit}
+            >
+              Generate Prompt
+            </CButton>
+          </div>
+        </div>
+      </div>
+      <div className="w-2/3 flex flex-col gap-y-4">
+        <label htmlFor="output">Predicted prompt:</label>
+
+        <div
+          className={classNames(
+            "px-2 py-1",
+            "border rounded p-4 border-gray-300 select-none bg-[#FFFFFF] text-gray-500 dark:text-gray-300 dark:bg-gray-700 dark:border-[#131621]"
+          )}
+        >
+          <pre className="min-h-[75px]" role="textbox">
+            {value}
+          </pre>
+        </div>
+
+        <CButton
+          className={classNames(
+            "w-[50%] max-w-[350px] justify-center",
+            "dark:bg-gray-500 bg-gray-600 dark:text-gray-200 text-white border border-gray-300 dark:border-gray-600 ",
+            "flex items-center gap-1 rounded-md min-w-fit cursor-pointer drop-shadow"
+          )}
+          onClick={copy}
+        >
+          Try Prompt
+        </CButton>
       </div>
     </div>
   );

@@ -17,8 +17,10 @@ export const CNavigationMD = ({ items }: ICNavigationProps) => {
           key={path}
           href={path}
           className={classNames(
-            "hover:text-magenta hover:text-[#DB0B36] cursor-pointer text-slate-500",
-            router.pathname === path ? "dark:text-white text-black" : ""
+            "hover:text-magenta hover:text-[#DB0B36] cursor-pointer",
+            router.pathname === path
+              ? "dark:text-white text-black"
+              : "text-slate-500"
           )}
         >
           {title}
