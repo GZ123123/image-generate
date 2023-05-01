@@ -1,5 +1,10 @@
-import { PropsWithChildren } from "react";
+import { ICCMSLayoutProps } from "./types";
+import { CAuthenticate } from "../CAuthenticate";
 
-export const CCMSLayout = ({ children }: PropsWithChildren) => {
-  return <div>{children}</div>;
+export const CCMSLayout = ({ children }: ICCMSLayoutProps) => {
+  return (
+    <CAuthenticate>
+      <div>{children}</div>
+    </CAuthenticate>
+  );
 };

@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 
-export interface ICFormProps {
-  children: ReactNode;
-}
+export interface ICFormProps extends PropsWithChildren {}

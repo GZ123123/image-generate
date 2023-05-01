@@ -10,10 +10,9 @@ import {
   SunIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useDimension, useToggle } from "src/common/hooks";
+import { useDarkMode, useDimension, useToggle } from "src/common/hooks";
 import { ICNavigationProps } from "./types";
 import Link from "next/link";
-import { useDarkMode } from "src/common/hooks/darkmode.hook";
 import { classNames } from "src/utils/class-names";
 import { useRouter } from "next/router";
 import { useEffect } from "react";

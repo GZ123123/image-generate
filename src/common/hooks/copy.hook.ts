@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { toast } from "react-toastify";
-import { useDarkMode } from "src/common/hooks/darkmode.hook";
+import { useDarkMode } from "src/common/hooks";
 
 export const useCopyToClipboard = (text: string) => {
   const { isDark } = useDarkMode();

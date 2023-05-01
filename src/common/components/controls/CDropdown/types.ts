@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 
 export interface ICDropdownItem {
   label: React.ReactElement;
@@ -8,10 +8,8 @@ export interface ICDropdownItem {
 
 export type ICDropdownItems = ICDropdownItem[];
 
-export interface ICDropdownProps {
+export interface ICDropdownProps extends PropsWithChildren {
   className?: string;
-
-  children: React.ReactNode;
 
   value?: string | number | boolean;
 

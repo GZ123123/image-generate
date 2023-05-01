@@ -36,16 +36,11 @@ export const MGeneratePage = ({ value, onChange }: IMGeneratePageProps) => {
 
   const { copy } = useCopyToClipboard(value);
 
-  const onSubmit = handleSubmit(
-    async ({ image }) => {
-      const data = await mutation(image);
+  const onSubmit = handleSubmit(async ({ image }) => {
+    const data = await mutation(image);
 
-      data && onChange(data);
-    },
-    (e) => {
-      console.log(e);
-    }
-  );
+    data && onChange(data);
+  });
 
   return (
     <div className="flex gap-x-8">

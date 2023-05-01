@@ -1,30 +1,38 @@
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from "next";
+import { IronSession } from "iron-session";
+import { useRouter } from "next/router";
+import { ReactElement, useEffect, useLayoutEffect } from "react";
+import { MLoginPage } from "src/modules/auth";
+import { withSession } from "src/utils/session";
 
-export default function SignIn() {
-  return (
-    <form method="post" action="/api/auth/callback/credentials">
-      <label>
-        Username
-        <input name="username" type="text" />
-      </label>
-      <label>
-        Password
-        <input name="password" type="password" />
-      </label>
-      <button type="submit">Sign in</button>
-    </form>
-  );
+interface ISignInProps {
+  session: IronSession;
 }
 
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//   // const csrfToken = await getCsrfToken(context);
+export default function SignIn({ session, ...props }: ISignInProps) {
+  const { replace } = useRouter();
 
-//   // console.log(csrfToken);
+  useEffect(() => {
+    if (session?.token) {
+      replace("/cms");
+    }
+  }, [session?.token]);
 
-//   return {
-//     // props: { csrfToken },
-//   };
-// }
+  return <MLoginPage />;
+}
+
+SignIn.getLayout = (page: ReactElement) => <>{page}</>;
+
+export const getServerSideProps = withSession(({ req, res }) => {
+  if (req.session.token) {
+    return {
+      redirect: {
+        destination: "/cms",
+        permanent: true,
+      },
+    };
+  }
+
+  return {
+    props: { session: req.session, test: "asd" },
+  };
+});

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ICNavigationProps } from "./types";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
-import { useDarkMode } from "src/common/hooks/darkmode.hook";
+import { useDarkMode } from "src/common/hooks";
 import { useRouter } from "next/router";
 import { classNames } from "src/utils/class-names";
 

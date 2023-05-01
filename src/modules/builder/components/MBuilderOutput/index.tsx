@@ -1,10 +1,9 @@
-import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { IMBuilderOutputProps } from "./types";
 import { classNames } from "src/utils/class-names";
 import { CButton } from "src/common/components/others";
 import { useCopyToClipboard } from "src/common/hooks";
 import { CBoardIcon } from "src/common/components/icons";
-import { useDarkMode } from "src/common/hooks/darkmode.hook";
 
 export const MBuilderOutput = ({
   texts,
@@ -13,8 +12,6 @@ export const MBuilderOutput = ({
   params,
   onReset,
 }: IMBuilderOutputProps) => {
-  const { isDark } = useDarkMode();
-
   const includeText = useMemo(() => {
     return texts
       .filter((text) => text.value && !text.exclude)

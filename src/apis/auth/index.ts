@@ -2,6 +2,7 @@ import http from "src/utils/axios";
 
 import { ILoginResponse, IProfileResponse, IRefreshResponse } from "./types";
 import { IAPIResponse } from "src/common/interfaces";
+import axios from "axios";
 
 export const authAPI = {
   login(
@@ -15,8 +16,10 @@ export const authAPI = {
     return http.post("/auth/renew-token", { token });
   },
 
-  profile(): Promise<IAPIResponse<IProfileResponse>> {
-    return http.get("/auth/my-profile");
+  profile(token: string): Promise<IAPIResponse<IProfileResponse>> {
+    return http.get("/auth/get-profile", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
   },
 
   logout(): Promise<IAPIResponse<void>> {

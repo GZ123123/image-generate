@@ -1,7 +1,5 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 
-export interface ICopyProps {
+export interface ICopyProps extends PropsWithChildren {
   text: string;
-
-  children: ReactNode;
 }

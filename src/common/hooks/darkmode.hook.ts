@@ -16,7 +16,12 @@ const setBodyMode = (mode: boolean) => {
 };
 
 if (typeof window !== "undefined") {
-  const initial = JSON.parse(localStorage?.getItem("mode") || "") === "dark";
+  let initial = false;
+
+  if (localStorage?.getItem("mode")) {
+    initial = JSON.parse(localStorage.getItem("mode") as string) === "dark";
+  }
+
   setBodyMode(initial);
 }
 

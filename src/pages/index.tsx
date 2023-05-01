@@ -1,22 +1,11 @@
-import { useSession } from "next-auth/react";
+import { withSession } from "src/utils/session";
 
 export default function Root() {
-  const { data } = useSession({
-    required: true,
-    onUnauthenticated() {
-      // The user is not authenticated, handle it here.
-    },
-  });
-
-  return <div className="mx-10">{JSON.stringify(data)}</div>;
+  return <div className="mx-10">{null}</div>;
 }
 
-export async function getServerSideProps(context: any) {
+export const getStaticProps = withSession(async (context: any) => {
   return {
     props: {},
-    redirect: {
-      permanent: true,
-      destination: "/builder",
-    },
   };
-}
+});

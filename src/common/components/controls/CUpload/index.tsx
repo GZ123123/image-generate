@@ -56,9 +56,9 @@ export const CUpload = forwardRef<
         box.classList.remove("is-dragover");
       });
     });
-    box.addEventListener("drop", (e: any) => {
-      console.log(typeof e);
-      const file = e.dataTransfer.files[0];
+    box.addEventListener("drop", (e: DragEvent) => {
+      const file = e.dataTransfer?.files[0];
+
       onChange(file);
     });
   }, []);
