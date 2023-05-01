@@ -1,6 +1,6 @@
 import { IronSession } from "iron-session";
 import { useRouter } from "next/router";
-import { ReactElement, useEffect, useLayoutEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { MLoginPage } from "src/modules/auth";
 import { withSession } from "src/utils/session";
 

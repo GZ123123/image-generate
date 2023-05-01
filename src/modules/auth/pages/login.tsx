@@ -21,11 +21,6 @@ export const MLoginPage = () => {
     const res = await login(username, password);
 
     res && replace("/cms");
-    // await signIn("credentials", {
-    //   username,
-    //   password,
-    //   redirect: false,
-    // });
   });
 
   return (
@@ -69,6 +64,7 @@ export const MLoginPage = () => {
                   render={({ field }) => (
                     <CInput
                       id="password"
+                      type="password"
                       {...field}
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />

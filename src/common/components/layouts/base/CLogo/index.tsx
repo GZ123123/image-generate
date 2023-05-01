@@ -14,7 +14,7 @@ export const CLogo = () => {
           width={100}
           height={100}
           className="w-10"
-          alt="TMI Prompt Logo"
+          alt={`${process.env.NEXT_PUBLIC_TITLE} Logo`}
         />
         <span
           className={classNames(
@@ -22,7 +22,7 @@ export const CLogo = () => {
             "uppercase mt-1 font-bold font-display text-2xl text-darkbg dark:text-slate-200"
           )}
         >
-          TMI PROMPT
+          {process.env.NEXT_PUBLIC_TITLE}
         </span>
       </div>
     </Link>

@@ -12,7 +12,7 @@ export const CFooter = () => {
         <div className="basis-1/3 text-slate-500 dark:text-slate-500 mb-2 sm:mb-0">
           <div className="sm:mb-3 mb-1 flex items-center gap-2 uppercase font-bold text-slate-300">
             <h3 className="text-2xl text-slate-800 dark:text-slate-200 font-bold">
-              TMI Prompt{" "}
+              {process.env.NEXT_PUBLIC_TITLE}
             </h3>
           </div>
           <div>
