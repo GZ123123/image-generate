@@ -1,11 +1,9 @@
-import { withSession } from "src/utils/session";
-
 export default function Root() {
-  return <div className="mx-10">{null}</div>;
+  return <div className="mx-10"></div>;
 }
 
-export const getStaticProps = withSession(async (context: any) => {
+export const getStaticProps = async (context: any) => {
   return {
     props: {},
   };
-});
+};

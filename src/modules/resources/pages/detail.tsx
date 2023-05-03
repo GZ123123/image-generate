@@ -45,6 +45,8 @@ export const MResourceDetailPage = ({
                       className="w-full"
                       src={image.url}
                       alt="album cover"
+                      width={200}
+                      height={200}
                     />
                   )}
                 </div>

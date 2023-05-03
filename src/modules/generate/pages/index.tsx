@@ -3,12 +3,11 @@ import { IMGeneratePageProps } from "../type";
 import { CUpload } from "src/common/components/controls/CUpload";
 import { useMutation } from "src/common/hooks/mutation.hook";
 import { imageAPIClient } from "src/apis/image/client";
-import { CButton } from "src/common/components/others";
+import { CButton, CSpinner } from "src/common/components/others";
 import { generateAPIClient } from "src/apis/generate/client";
 import { classNames } from "src/utils/class-names";
 import { promptResolver } from "../validate";
 import { useCopyToClipboard } from "src/common/hooks";
-import { CSpinner } from "src/common/components/others/CSpinner";
 
 export const MGeneratePage = ({ value, onChange }: IMGeneratePageProps) => {
   const { isLoading, mutation } = useMutation(

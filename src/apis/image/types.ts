@@ -5,7 +5,9 @@ export interface IPublicImageParams extends ISearchParams {
   category_id?: string;
 }
 
-export interface IImageParams extends IPaginationParams, ISearchParams {}
+export interface IImageParams extends IPaginationParams, ISearchParams {
+  category_id?: string;
+}
 
 export interface IImageRequest {
   name?: string;

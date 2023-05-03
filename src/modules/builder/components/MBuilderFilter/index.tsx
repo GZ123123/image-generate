@@ -171,10 +171,8 @@ export const MBuilderFilter = ({
                 <Image
                   src={image.url as string}
                   alt={image.name || ""}
-                  style={{
-                    width: "100% !important",
-                    height: "100% !important",
-                  }}
+                  width={200}
+                  height={200}
                 />
               </div>
             </div>

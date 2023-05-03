@@ -7,7 +7,11 @@ const CInput = forwardRef<HTMLInputElement, ICInputProps<HTMLInputElement>>(
     return (
       <div className={classNames("input-group w-full")}>
         {/* LABEL */}
-        {label && <label htmlFor={id}>{label}</label>}
+        {label && (
+          <label className="capitalize" htmlFor={id}>
+            {label}
+          </label>
+        )}
         {/* INPUT */}
         <div
           className={classNames(

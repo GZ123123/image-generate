@@ -5,7 +5,7 @@ import { IImageParams, IImageRequest, IImageResponse } from "./types";
 
 export const imageAPI = {
   get(params: IImageParams): Promise<IPaginationResponse<IImageResponse>> {
-    return http.post("/images/all", { params });
+    return http.post("/images/all", { ...params });
   },
 
   getById(id: string): Promise<IAPIResponse<ImageResponse>> {

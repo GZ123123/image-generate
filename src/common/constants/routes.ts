@@ -41,15 +41,15 @@ export const CMS_ROUTES = {
   },
   RESOURCES: {
     INDEX: {
-      path: "/cms/resources",
+      path: "/cms/category/[id]",
       title: "Resources",
     },
     CREATE: {
-      path: "/cms/resources/form",
+      path: "/cms/category/[id]/form",
       title: "Create Resources",
     },
     UPDATE: {
-      path: "/cms/resources/form/[id]",
+      path: "/cms/category/[id]/form/[imageId]",
       title: "Update Resources",
     },
   },

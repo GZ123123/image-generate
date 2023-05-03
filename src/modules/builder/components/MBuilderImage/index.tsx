@@ -66,7 +66,13 @@ export const MBuilderImage = ({ value, onChange }: IMBuilderImageProps) => {
           >
             <div>
               <div className="w-full aspect-square overflow-hidden flex items-center bg-gray-200 dark:bg-gray-800">
-                <Image className="object-cover w-full" src={image} alt={""} />
+                <Image
+                  className="object-cover w-full"
+                  src={image}
+                  alt={""}
+                  width={200}
+                  height={200}
+                />
               </div>
               <div className="py-1 px-2 text-sm text-gray-500">{image}</div>
             </div>

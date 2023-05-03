@@ -1,6 +1,6 @@
-import { IAPIResponse, IPaginationResponse } from "src/common/interfaces";
 import http from "src/utils/axios";
-import { ICategoryResponse } from "./types";
+import { IAPIResponse, IPaginationResponse } from "src/common/interfaces";
+import { ICategoryRequest, ICategoryResponse } from "./types";
 
 export const categoryAPI = {
   get(params: any): Promise<IPaginationResponse<ICategoryResponse>> {
@@ -11,11 +11,14 @@ export const categoryAPI = {
     return http.get(`/categories/${id}`);
   },
 
-  create(category: any): Promise<IAPIResponse<ICategoryResponse>> {
+  create(category: ICategoryRequest): Promise<IAPIResponse<ICategoryResponse>> {
     return http.post("/categories", category);
   },
 
-  update(id: string, category: any): Promise<IAPIResponse<ICategoryResponse>> {
+  update(
+    id: string,
+    category: ICategoryRequest
+  ): Promise<IAPIResponse<ICategoryResponse>> {
     return http.put(`/categories/${id}`, category);
   },
 
