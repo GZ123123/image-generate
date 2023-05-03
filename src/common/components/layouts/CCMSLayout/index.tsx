@@ -1,9 +1,7 @@
 import { ICCMSLayoutProps } from "./types";
-import { CAuthenticate } from "../CAuthenticate";
 import {
   AppBar,
   Box,
-  Card,
   Container,
   CssBaseline,
   Divider,
@@ -11,7 +9,6 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemButton,
   ListItemText,
   Toolbar,
   Typography,
@@ -114,7 +111,11 @@ export const CCMSLayout = ({ children }: ICCMSLayoutProps) => {
         draggable={false}
         pauseOnHover={false}
       />
-      <Box component="div" sx={{ display: "flex" }} className="bg-gray-100">
+      <Box
+        component="div"
+        sx={{ display: "flex" }}
+        className="bg-gray-100 min-h-[100vh]"
+      >
         <CssBaseline />
         <AppBar
           position="fixed"

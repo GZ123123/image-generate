@@ -2,13 +2,13 @@ import { Box, Button, Modal } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { CInput, CUpload } from "src/common/components/controls";
 import { classNames } from "src/utils/class-names";
-import { ICategoryForm, IMFormProps } from "./types";
+import { IResourceForm, IMFormProps } from "./types";
 import { toast } from "react-toastify";
 
-export const MForm = ({ category, onSubmit, onClose }: IMFormProps) => {
-  const { control, handleSubmit } = useForm<ICategoryForm>({
+export const MForm = ({ resource, onSubmit, onClose }: IMFormProps) => {
+  const { control, handleSubmit } = useForm<IResourceForm>({
     defaultValues: {
-      name: category?.name ?? "",
+      key: resource.key,
     },
   });
 
@@ -46,7 +46,7 @@ export const MForm = ({ category, onSubmit, onClose }: IMFormProps) => {
                 <CUpload
                   id="file-upload"
                   {...field}
-                  value={field.value || category?.image || ""}
+                  value={field.value || resource?.url || ""}
                 />
               )}
             />
@@ -54,10 +54,8 @@ export const MForm = ({ category, onSubmit, onClose }: IMFormProps) => {
           <div className="px-3 pb-3">
             <Controller
               control={control}
-              name="name"
-              render={({ field }) => (
-                <CInput label="name" id="name" {...field} />
-              )}
+              name="key"
+              render={({ field }) => <CInput label="key" id="key" {...field} />}
             />
           </div>
         </div>

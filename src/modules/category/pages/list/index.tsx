@@ -18,8 +18,7 @@ import { DEFAULT_PAGINATION } from "src/common/constants/default";
 import { CMS_ROUTES } from "src/common/constants/routes";
 import useSWR from "swr";
 import { MForm } from "../../components/MForm";
-import { ICategoryForm } from "../../components/MForm/type";
-import { imageAPI } from "src/apis/image";
+import { ICategoryForm } from "../../components/MForm/types";
 import { imageAPIClient } from "src/apis/image/client";
 import { toast } from "react-toastify";
 
