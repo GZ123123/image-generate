@@ -1,10 +1,10 @@
+import useSWR from "swr";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { IconButton, Typography } from "@mui/material";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { ReactElement, useEffect, useMemo, useState } from "react";
-import { categoryAPI } from "src/apis/category";
-import { ICategoryResponse } from "src/apis/category/types";
+import { blogAPI } from "src/apis/blog";
+
 import { CCMSLayout } from "src/common/components/layouts";
 import { CTable } from "src/common/components/others";
 import {
@@ -12,7 +12,7 @@ import {
   ICTablePaginationProps,
 } from "src/common/components/others/CTable/types";
 import { CMS_ROUTES } from "src/common/constants/routes";
-import useSWR from "swr";
+import { IBlogsReponse } from "src/apis/blog/types";
 
 const columns = ({
   onEdit,
@@ -20,9 +20,9 @@ const columns = ({
 }: {
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
-}): ICTableColumnsProps<ICategoryResponse>[] => [
+}): ICTableColumnsProps<IBlogsReponse>[] => [
   {
-    key: "_id",
+    key: "action",
     label: "action",
     render: (_, record) => (
       <div className="flex justify-start gap-x-2">
@@ -37,18 +37,25 @@ const columns = ({
     sticky: true,
     width: "125px",
   },
+  { key: "title", label: "title", width: "500px" },
+  { key: "created_by", label: "created by" },
+  { key: "created_date", label: "created date" },
+  { key: "is_public", label: "public" },
   {
-    key: "image",
-    label: "image",
-    width: "75px",
-    render: (value: string, record: ICategoryResponse) => (
-      <Image src={value} width={20} height={20} alt={record.name || ""} />
+    key: "hashtags",
+    label: "hashtags",
+    width: "400px",
+    render: (value) => (
+      <>
+        {(value as string[])?.map((v: string) => {
+          <span key={v}>{v}</span>;
+        })}
+      </>
     ),
   },
-  { key: "name", label: "name" },
 ];
 
-export default function Category() {
+export default function BlogList() {
   const { push } = useRouter();
 
   const [pagination, setPagination] = useState<ICTablePaginationProps>({
@@ -58,12 +65,11 @@ export default function Category() {
     total: 0,
   });
 
-  const { data } = useSWR(
-    ["categories", pagination.size, pagination.page],
-    () => categoryAPI.get(pagination)
+  const { data } = useSWR(["blogs", pagination.size, pagination.page], () =>
+    blogAPI.get(pagination)
   );
 
-  const categories = useMemo(() => {
+  const blogs = useMemo(() => {
     return data?.data.data ?? [];
   }, [data]);
 
@@ -86,12 +92,12 @@ export default function Category() {
   return (
     <>
       <Typography component={"h1"} className="text-xl mb-4">
-        Categories List
+        Blogs List
       </Typography>
 
       <CTable
-        name="categories-list"
-        data={categories}
+        name="blogs-list"
+        data={blogs}
         columns={columns({ onEdit, onDelete })}
         pagination={pagination}
         onChange={setPagination}
@@ -100,4 +106,4 @@ export default function Category() {
   );
 }
 
-Category.getLayout = (page: ReactElement) => <CCMSLayout>{page}</CCMSLayout>;
+BlogList.getLayout = (page: ReactElement) => <CCMSLayout>{page}</CCMSLayout>;

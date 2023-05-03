@@ -12,7 +12,7 @@ export const blogAPI = {
     return http.get("/blogs", { params });
   },
 
-  getByIg(id: string): Promise<IAPIResponse<IBlogResponse>> {
+  getById(id: string): Promise<IAPIResponse<IBlogResponse>> {
     return http.get(`/blogs/${id}`);
   },
 

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { IMResourceDetailPage } from "../type";
+import Image from "next/image";
 
 export const MResourceDetailPage = ({
   category,
@@ -39,7 +40,13 @@ export const MResourceDetailPage = ({
                 className="w-full overflow-hidden relative dark:bg-darkbg-700 bg-slate-200"
               >
                 <div className="w-full aspect-square overflow-hidden flex items-center ">
-                  <img className="w-full" src={image.url} alt="album cover" />
+                  {image.url && (
+                    <Image
+                      className="w-full"
+                      src={image.url}
+                      alt="album cover"
+                    />
+                  )}
                 </div>
                 <div className="text-sm  my-2 p-2">{image.key}</div>
                 <div className="absolute top-2 right-2 bg-lightbg dark:bg-darkbg shadow-xl p-2 hover:bg-darkbg-800 dark:hover:bg-lightbg hover:text-slate-200 dark:hover:text-darkbg cursor-pointer rounded">

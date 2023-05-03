@@ -7,6 +7,7 @@ import { CInput } from "src/common/components/controls";
 import { IMBuilderImageProps } from "./types";
 
 import { urlResolver } from "./validate";
+import Image from "next/image";
 
 export const MBuilderImage = ({ value, onChange }: IMBuilderImageProps) => {
   const { control, handleSubmit, reset } = useForm({
@@ -65,7 +66,7 @@ export const MBuilderImage = ({ value, onChange }: IMBuilderImageProps) => {
           >
             <div>
               <div className="w-full aspect-square overflow-hidden flex items-center bg-gray-200 dark:bg-gray-800">
-                <img className="object-cover w-full" src={image} alt={""} />
+                <Image className="object-cover w-full" src={image} alt={""} />
               </div>
               <div className="py-1 px-2 text-sm text-gray-500">{image}</div>
             </div>

@@ -132,3 +132,7 @@ input.shadow-none:focus {
 .bg-magenta {
   background-color: rgb(219 11 54 / var(--tw-bg-opacity));
 }
+
+.z-10 {
+  z-index: 10 !important;
+}

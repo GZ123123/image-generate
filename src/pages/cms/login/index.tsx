@@ -11,6 +11,8 @@ interface ISignInProps {
 export default function SignIn({ session, ...props }: ISignInProps) {
   const { replace } = useRouter();
 
+  console.log("SignIn");
+
   useEffect(() => {
     if (session?.token) {
       replace("/cms");
@@ -23,6 +25,8 @@ export default function SignIn({ session, ...props }: ISignInProps) {
 SignIn.getLayout = (page: ReactElement) => <>{page}</>;
 
 export const getServerSideProps = withSession(({ req, res }) => {
+  console.log(req.session.token);
+
   if (req.session.token) {
     return {
       redirect: {

@@ -3,11 +3,11 @@ import { IronSessionData } from "iron-session";
 
 export const useSession = () => {
   const get = async (key: string) => {
-    return axios.get("/api/session/get");
+    const res = await axios.get("/api/session/get");
+    return <IronSessionData>res.data;
   };
 
   const set = (data: Partial<IronSessionData>) => {
-    // (data: { [key: string]: string }) => {
     return axios.put("/api/session/set", data);
   };
 

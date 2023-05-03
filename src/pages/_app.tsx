@@ -10,7 +10,6 @@ import "src/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { classNames } from "src/utils/class-names";
 import { inter } from "src/common/fonts";
-import { setup } from "src/utils/csrf";
 //#endregion
 
 if (!process.browser) React.useLayoutEffect = React.useEffect;

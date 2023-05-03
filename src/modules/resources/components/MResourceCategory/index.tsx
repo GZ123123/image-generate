@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { IMResourcesCategory } from "./type";
+import Image from "next/image";
 
 export const MResourcesCateogry = ({ category }: IMResourcesCategory) => {
   return (
     <div className="h-full  overflow-hidden rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700">
       <Link href={`/resources/${category._id}`}>
-        <img
+        <Image
           alt="Midjourney Daily Theme Record"
           src="/cards/midjourney-daily-theme.jpg"
           className="object-cover object-center md:h-36 lg:h-48"

@@ -11,6 +11,7 @@ import { imageAPIClient } from "src/apis/image/client";
 import { useDebounce } from "src/common/hooks";
 import { classNames } from "src/utils/class-names";
 import { IImageResponse } from "src/apis/image/types";
+import Image from "next/image";
 
 export const MBuilderFilter = ({
   initialCategory,
@@ -127,31 +128,29 @@ export const MBuilderFilter = ({
             Selected ({value.length})
           </CButton>
           {categories?.map(({ _id, name, image }) => (
-            <CButton
-              key={_id}
-              onClick={() => onFilter(_id)}
-              className={classNames(
-                _id === category
-                  ? " dark:bg-gray-500 bg-gray-600 dark:text-gray-900 text-white"
-                  : "dark:bg-[#131624] bg-gray-200 dark:text-gray-400 text-gray-500 hover:text-[#DB0B36] dark:hover:text-[#DB0B36]",
-                "border border-gray-300 dark:border-gray-600 flex items-center gap-1  px-2 py-1 rounded-md min-w-fit cursor-pointer drop-shadow"
+            <>
+              {image && (
+                <CButton
+                  key={_id}
+                  onClick={() => onFilter(_id)}
+                  className={classNames(
+                    _id === category
+                      ? " dark:bg-gray-500 bg-gray-600 dark:text-gray-900 text-white"
+                      : "dark:bg-[#131624] bg-gray-200 dark:text-gray-400 text-gray-500 hover:text-[#DB0B36] dark:hover:text-[#DB0B36]",
+                    "border border-gray-300 dark:border-gray-600 flex items-center gap-1  px-2 py-1 rounded-md min-w-fit cursor-pointer drop-shadow"
+                  )}
+                >
+                  <Image
+                    src={image}
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="filter-none dark:filter invert"
+                  />
+                  {name}
+                </CButton>
               )}
-            >
-              <img
-                src={image}
-                alt=""
-                width={20}
-                height={20}
-                className="filter-none dark:filter invert"
-              />
-              {/* <div
-                className="logo w-[20px] h-[20px]"
-                style={{
-                  mask: `url('${image}')`,
-                }}
-              ></div> */}
-              {name}
-            </CButton>
+            </>
           ))}
         </div>
       )}
@@ -169,11 +168,13 @@ export const MBuilderFilter = ({
           >
             <div>
               <div className="w-full aspect-square overflow-hidden flex items-center bg-gray-200 dark:bg-gray-800">
-                <img
+                <Image
                   src={image.url as string}
                   alt={image.name || ""}
-                  width={"100%"}
-                  height={"100%"}
+                  style={{
+                    width: "100% !important",
+                    height: "100% !important",
+                  }}
                 />
               </div>
             </div>

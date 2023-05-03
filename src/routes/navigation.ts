@@ -12,12 +12,12 @@ export const navigations: INavigationItems = [
 
 export const cmsNavigations: INavigationItems = [
   {
-    path: CMS_ROUTES["BLOG"]["INDEX"]["path"],
-    title: CMS_ROUTES["BLOG"]["INDEX"]["title"],
-  },
-  {
     path: CMS_ROUTES["CATEGORY"]["INDEX"]["path"],
     title: CMS_ROUTES["CATEGORY"]["INDEX"]["title"],
+  },
+  {
+    path: CMS_ROUTES["BLOG"]["INDEX"]["path"],
+    title: CMS_ROUTES["BLOG"]["INDEX"]["title"],
   },
   {
     path: CMS_ROUTES["RESOURCES"]["INDEX"]["path"],

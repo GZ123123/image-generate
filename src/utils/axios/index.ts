@@ -13,4 +13,16 @@ export const setToken = (token: string) => {
   instance.defaults.headers["Authorization"] = `Bearer ${token}`;
 };
 
+export const initialHttp = () => {
+  instance.interceptors.response.use(
+    (res) => {
+      if (res.status === 205) {
+      }
+
+      return res;
+    },
+    (err) => err
+  );
+};
+
 export default instance;

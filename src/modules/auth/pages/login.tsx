@@ -20,6 +20,8 @@ export const MLoginPage = () => {
   const onSubmit = handleSubmit(async ({ username, password }) => {
     const res = await login(username, password);
 
+    console.log("res");
+
     res && replace("/cms");
   });
 

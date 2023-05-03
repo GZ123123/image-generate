@@ -27,6 +27,12 @@ export const ROUTES = {
 };
 
 export const CMS_ROUTES = {
+  LOGIN: {
+    INDEX: {
+      path: "/cms/login",
+      title: "Login",
+    },
+  },
   CATEGORY: {
     INDEX: {
       path: "/cms/category",
@@ -43,7 +49,7 @@ export const CMS_ROUTES = {
       title: "Create Resources",
     },
     UPDATE: {
-      path: "/cms/resources/form/:id",
+      path: "/cms/resources/form/[id]",
       title: "Update Resources",
     },
   },
@@ -57,7 +63,7 @@ export const CMS_ROUTES = {
       title: "Create Blogs",
     },
     UPDATE: {
-      path: "/cms/blogs/form/:id",
+      path: "/cms/blogs/form/[id]",
       title: "Update Blogs",
     },
   },
