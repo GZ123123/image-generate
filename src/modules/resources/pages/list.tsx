@@ -13,7 +13,12 @@ import { useEffect, useMemo, useState } from "react";
 import { categoryAPI } from "src/apis/category";
 import { imageAPI } from "src/apis/image";
 import { IImageResponse } from "src/apis/image/types";
-import { CDeleteDialog, CSpinner, CTable } from "src/common/components/others";
+import {
+  CDeleteDialog,
+  CLink,
+  CSpinner,
+  CTable,
+} from "src/common/components/others";
 import {
   ICTableColumnsProps,
   ICTablePaginationProps,
@@ -143,11 +148,6 @@ export const ResourcesListPage = () => {
     setModalData(null);
   };
 
-  const onRedirect = (e: any) => {
-    e.preventDefault();
-    push(CMS_ROUTES.CATEGORY.INDEX.path);
-  };
-
   const onOk = async () => {
     if (deleteData) {
       const res = await imageAPI.delete(deleteData);
@@ -189,11 +189,14 @@ export const ResourcesListPage = () => {
     <>
       <div className="flex justify-between mb-4 items-center">
         <Breadcrumbs aria-label="breadcrumb">
-          <Link href={CMS_ROUTES.CATEGORY.INDEX.path} onClick={onRedirect}>
+          <CLink
+            href={CMS_ROUTES.CATEGORY.INDEX.path}
+            className="text-blue-500 underline"
+          >
             <Typography component={"h1"} className="text-xl mb-4">
               Categories List
             </Typography>
-          </Link>
+          </CLink>
           <Typography component={"h1"} className="text-xl mb-4">
             Images List Of ({category?.name})
           </Typography>

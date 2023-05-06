@@ -2,6 +2,7 @@ import { ICCMSLayoutProps } from "./types";
 import {
   AppBar,
   Box,
+  Button,
   Container,
   CssBaseline,
   Divider,
@@ -9,7 +10,6 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemText,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -23,7 +23,7 @@ import { CSpinner } from "../../others/CSpinner";
 import { initialHttp, setToken } from "src/utils/axios";
 import { useRouter } from "next/router";
 import { CMS_ROUTES } from "src/common/constants/routes";
-import Link from "next/link";
+import { CLink } from "../../others";
 
 export const CCMSLayout = ({ children }: ICCMSLayoutProps) => {
   const { replace } = useRouter();
@@ -68,20 +68,29 @@ export const CCMSLayout = ({ children }: ICCMSLayoutProps) => {
   const drawer = (
     <div>
       <AppBar>
-        <Toolbar>
+        <Toolbar className="justify-between">
           <Typography variant="h6" noWrap component="div" className="uppercase">
             {process.env.NEXT_PUBLIC_TITLE}
           </Typography>
+          <CLink href={CMS_ROUTES.LOGOUT.INDEX.path}>
+            <Button variant="contained" color="warning">
+              {CMS_ROUTES.LOGOUT.INDEX.title}
+            </Button>
+          </CLink>
         </Toolbar>
       </AppBar>
       <Toolbar />
       <Divider />
       <List>
         {cmsNavigations.map((nav) => (
-          <ListItem key={nav.path}>
-            <Link href={nav.path} className="w-full">
-              <ListItemText primary={nav.title} />
-            </Link>
+          <ListItem key={nav.path} sx={{ padding: 0 }}>
+            <CLink
+              href={nav.path}
+              className="w-full px-4 py-2"
+              activeClassName="bg-blue-200 font-semibold"
+            >
+              {nav.title}
+            </CLink>
           </ListItem>
         ))}
       </List>

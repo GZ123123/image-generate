@@ -4,10 +4,10 @@ import { withSessionApi } from "src/utils/session";
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method !== "GET") {
-    res.status(404);
+    return res.status(405);
   }
 
-  res.send({ ...req.session });
+  return res.status(200).send({ ...req.session });
 };
 
 export default withSessionApi(handler);

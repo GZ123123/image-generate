@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { IBlogRequest } from "src/apis/blog/types";
 import { IMBlogUpdatePageProps } from "../type";
 import { blogAPI } from "src/apis";
+import { CLink } from "src/common/components/others";
 
 export const MBlogUpdatePage = ({
   id,
@@ -13,11 +14,6 @@ export const MBlogUpdatePage = ({
   initialTags,
 }: IMBlogUpdatePageProps) => {
   const { push } = useRouter();
-
-  const onNavigate = (e: any) => {
-    e.preventDefault();
-    push(CMS_ROUTES.BLOG.INDEX.path);
-  };
 
   const onUpdate = async (data: IBlogRequest) => {
     const res = await blogAPI.update(id, data);
@@ -38,9 +34,12 @@ export const MBlogUpdatePage = ({
     <>
       <div className="flex justify-between mb-4">
         <Breadcrumbs aria-label="breadcrumb">
-          <Link href={CMS_ROUTES.BLOG.INDEX.path} onClick={onNavigate}>
+          <CLink
+            href={CMS_ROUTES.BLOG.INDEX.path}
+            className="text-blue-500 underline"
+          >
             {CMS_ROUTES.BLOG.INDEX.title}
-          </Link>
+          </CLink>
           <Typography component={"h1"} className="text-xl">
             {CMS_ROUTES.BLOG.UPDATE.title}
           </Typography>

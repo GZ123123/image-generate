@@ -36,14 +36,14 @@ const columns = ({
     label: "action",
     render: (_, record) => (
       <div className="flex justify-start gap-x-2">
+        <IconButton color="info" onClick={() => onSelect(record["_id"])}>
+          <MagnifyingGlassIcon width={20} />
+        </IconButton>
         <IconButton color="primary" onClick={() => onEdit(record["_id"])}>
           <PencilSquareIcon width={20} />
         </IconButton>
         <IconButton color="error" onClick={() => onDelete(record["_id"])}>
           <TrashIcon width={20} />
-        </IconButton>
-        <IconButton color="info" onClick={() => onSelect(record["_id"])}>
-          <MagnifyingGlassIcon width={20} />
         </IconButton>
       </div>
     ),

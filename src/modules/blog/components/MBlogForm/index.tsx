@@ -113,7 +113,7 @@ export const MBlogForm = ({
           Save
         </Button>
         <Button variant="contained" color="error" onClick={onCancel}>
-          Hủy
+          Cancel
         </Button>
       </div>
     </>

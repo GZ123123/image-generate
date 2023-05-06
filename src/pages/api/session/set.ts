@@ -1,11 +1,20 @@
 import type { NextApiHandler } from "next/types";
 
+import NextCors from "nextjs-cors";
+
 import { withSessionApi } from "src/utils/session";
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method !== "PUT") {
-    res.status(404);
+    return res.status(405);
   }
+
+  await NextCors(req, res, {
+    methods: ["PUT"],
+    origin: "imiprompt.vtcode.vn",
+    optionsSuccessStatus: 200,
+    credentials: true,
+  });
 
   req.session = {
     ...req.session,
@@ -14,7 +23,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   await req.session.save();
 
-  res.send({ ...req.session });
+  return res.status(200).send({ ...req.session });
 };
 
 export default withSessionApi(handler);

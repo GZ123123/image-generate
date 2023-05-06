@@ -33,6 +33,12 @@ export const CMS_ROUTES = {
       title: "Login",
     },
   },
+  LOGOUT: {
+    INDEX: {
+      path: "/cms/logout",
+      title: "Logout",
+    },
+  },
   CATEGORY: {
     INDEX: {
       path: "/cms/category",
