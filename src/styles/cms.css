@@ -1,0 +1,23 @@
+.MuiAutocomplete-root .MuiInputBase-root {
+  padding-top: 2px !important;
+  padding-bottom: 1px !important;
+  padding-left: 0 !important;
+}
+
+.MuiAutocomplete-root .MuiInputBase-root input {
+  padding: 4px 8px !important;
+  box-shadow: none;
+}
+
+.ck-content {
+  min-height: 200px;
+  height: min(400px, 80vh);
+}
+
+.MuiFormControl-root .MuiInputBase-root {
+  padding: 4px 8px;
+}
+
+.MuiFormControl-root .MuiInputBase-root textarea {
+  box-shadow: none;
+}

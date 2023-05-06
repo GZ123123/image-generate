@@ -4,21 +4,11 @@ import { PropsWithChildren } from "react";
 
 //#region SOURCE
 import { CHeader, CFooter } from "../base";
-import { ToastContainer } from "react-toastify";
 //#endregion
 
 export const CMainLayout = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        closeButton={false}
-        hideProgressBar
-        pauseOnFocusLoss={false}
-        draggable={false}
-        pauseOnHover={false}
-      />
       <header className="absolute inset-x-0 top-0 z-50 max-w-7xl mx-auto">
         <CHeader />
       </header>

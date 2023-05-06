@@ -6,20 +6,16 @@ export const useAuthenticate = () => {
   const { set, clear } = useSession();
 
   const login = async (username: string, password: string) => {
-    try {
-      const res = await authAPI.login(username, password);
+    const res = await authAPI.login(username, password);
 
+    if (res.errorCode === 0) {
       await set({
         token: res.data.access_token,
         refreshToken: res.data.refresh_token,
       });
-
-      return true;
-    } catch (e) {
-      console.log(e);
-
-      return false;
     }
+
+    return res;
   };
 
   const logout = async () => {

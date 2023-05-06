@@ -6,7 +6,9 @@ const instance = axios.create({
 
 instance.interceptors.response.use(
   (res) => res.data,
-  (err) => err
+  (err) => {
+    throw err["response"]["data"];
+  }
 );
 
 export const setToken = (token: string) => {

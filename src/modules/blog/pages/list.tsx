@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { blogAPI } from "src/apis/blog";
 
-import { CTable } from "src/common/components/others";
+import { CDeleteDialog, CTable } from "src/common/components/others";
 import {
   ICTableColumnsProps,
   ICTablePaginationProps,
@@ -13,6 +13,7 @@ import {
 import { CMS_ROUTES } from "src/common/constants/routes";
 import { IBlogsReponse } from "src/apis/blog/types";
 import { DEFAULT_PAGINATION } from "src/common/constants/default";
+import { toast } from "react-toastify";
 
 const columns = ({
   onEdit,
@@ -61,8 +62,11 @@ export const BlogListPage = () => {
   const [pagination, setPagination] =
     useState<ICTablePaginationProps>(DEFAULT_PAGINATION);
 
-  const { data } = useSWR(["blogs", pagination.size, pagination.page], () =>
-    blogAPI.get(pagination)
+  const [deleteData, setDeleteData] = useState<string | null>(null);
+
+  const { data, mutate } = useSWR(
+    ["blogs", pagination.size, pagination.page],
+    () => blogAPI.get(pagination)
   );
 
   const blogs = useMemo(() => {
@@ -78,7 +82,25 @@ export const BlogListPage = () => {
   };
 
   const onDelete = (id: string) => {
-    // console.log(id);
+    setDeleteData(id);
+  };
+
+  const onOk = async () => {
+    if (deleteData) {
+      const res = await blogAPI.delete(deleteData);
+
+      if (res.errorCode === 0) {
+        toast.success("Delete Successfull");
+        mutate();
+        onCancel();
+      } else {
+        toast.error("Delete Error");
+      }
+    }
+  };
+
+  const onCancel = () => {
+    setDeleteData(null);
   };
 
   useEffect(() => {
@@ -91,8 +113,8 @@ export const BlogListPage = () => {
 
   return (
     <>
-      <div className="flex justify-between ">
-        <Breadcrumbs>
+      <div className="flex justify-between mb-4">
+        <Breadcrumbs aria-label="breadcrumb">
           <Typography component={"h1"} className="text-xl mb-4">
             Blogs List
           </Typography>
@@ -110,6 +132,8 @@ export const BlogListPage = () => {
         pagination={pagination}
         onChange={setPagination}
       />
+
+      <CDeleteDialog open={!!deleteData} onOk={onOk} onCancel={onCancel} />
     </>
   );
 };

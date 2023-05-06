@@ -1,8 +1,11 @@
 import { IImageResponse } from "src/apis/image/types";
+import { IAPIResponse } from "src/common/interfaces";
 
 export interface IMFormProps {
   resource: IResourceForm;
-  onSubmit: (data: IResourceForm) => Promise<IImageResponse | null>;
+  onSubmit: (
+    data: IResourceForm
+  ) => Promise<IAPIResponse<IImageResponse> | null>;
   onClose: () => void;
 }
 

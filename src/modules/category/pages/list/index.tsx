@@ -93,7 +93,7 @@ export const CategoryListPage = () => {
         _data["image_id"] = res.data._id;
       }
 
-      const _res = await categoryAPI.create(_data).then((res) => res.data);
+      const _res = await categoryAPI.create(_data);
 
       mutate();
 
@@ -109,9 +109,7 @@ export const CategoryListPage = () => {
     setModalData({ id, image: find?.image, name: find?.name as string });
   };
 
-  const handleEdit = async (
-    data: ICategoryForm
-  ): Promise<ICategoryResponse | null> => {
+  const handleEdit = async (data: ICategoryForm) => {
     const _data: ICategoryRequest = {
       name: data.name,
     };
@@ -121,9 +119,7 @@ export const CategoryListPage = () => {
         _data["image_id"] = res.data._id;
       }
 
-      const _res = await categoryAPI
-        .update(modalData?.id as string, _data)
-        .then((res) => res.data);
+      const _res = await categoryAPI.update(modalData?.id as string, _data);
 
       mutate();
 
@@ -149,12 +145,12 @@ export const CategoryListPage = () => {
     if (deleteData) {
       const res = await categoryAPI.delete(deleteData);
 
-      if (res) {
-        toast("Delete Successfull");
+      if (res.errorCode === 0) {
+        toast.success("Delete Successfull");
         mutate();
         onCancel();
       } else {
-        toast("Delete Error");
+        toast.error("Delete Error");
       }
     }
   };

@@ -7,6 +7,7 @@ const config: IronSessionOptions = {
     "complex_password_at_least_32_characters_long",
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
+    httpOnly: process.env.NODE_ENV === "production",
   },
   ttl: parseInt(process.env.NEXT_SESSION_TTL || "180"),
 };

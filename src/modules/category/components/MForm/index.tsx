@@ -1,26 +1,16 @@
 import { Box, Button, Modal } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { CInput, CUpload } from "src/common/components/controls";
 import { classNames } from "src/utils/class-names";
 import { ICategoryForm, IMFormProps } from "./types";
-import { toast } from "react-toastify";
+import { useForm } from "src/utils/form";
 
 export const MForm = ({ category, onSubmit, onClose }: IMFormProps) => {
-  const { control, handleSubmit } = useForm<ICategoryForm>({
+  const { control, handleSubmit } = useForm<ICategoryForm>(onSubmit, {
     defaultValues: {
       name: category?.name ?? "",
     },
-  });
-
-  const submit = handleSubmit(async (v) => {
-    const res = await onSubmit(v);
-
-    if (res?._id) {
-      toast.success("Save Successful");
-      setTimeout(onClose, 300);
-    } else {
-      toast.success("Save Error");
-    }
+    success: () => setTimeout(onClose, 300),
   });
 
   return (
@@ -63,7 +53,7 @@ export const MForm = ({ category, onSubmit, onClose }: IMFormProps) => {
         </div>
 
         <div className="w-full px-3 mt-2 flex justify-end">
-          <Button className="w-full" variant="contained" onClick={submit}>
+          <Button className="w-full" variant="contained" onClick={handleSubmit}>
             Submit
           </Button>
         </div>

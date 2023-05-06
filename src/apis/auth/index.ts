@@ -2,7 +2,6 @@ import http from "src/utils/axios";
 
 import { ILoginResponse, IProfileResponse, IRefreshResponse } from "./types";
 import { IAPIResponse } from "src/common/interfaces";
-import axios from "axios";
 
 export const authAPI = {
   login(

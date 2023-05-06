@@ -13,7 +13,7 @@ import { useEffect, useMemo, useState } from "react";
 import { categoryAPI } from "src/apis/category";
 import { imageAPI } from "src/apis/image";
 import { IImageResponse } from "src/apis/image/types";
-import { CSpinner, CTable } from "src/common/components/others";
+import { CDeleteDialog, CSpinner, CTable } from "src/common/components/others";
 import {
   ICTableColumnsProps,
   ICTablePaginationProps,
@@ -24,6 +24,7 @@ import useSWR from "swr";
 import { MForm } from "../components/MForm";
 import { IResourceForm } from "../components/MForm/types";
 import { imageAPIClient } from "src/apis/image/client";
+import { toast } from "react-toastify";
 
 const columns = ({
   onEdit,
@@ -98,12 +99,10 @@ export const ResourcesListPage = () => {
 
       const res = await imageAPIClient.upload(data.image);
 
-      const _res = await imageAPI
-        .update(res.data._id, {
-          key: data.key,
-          category_id: query["id"] as string,
-        })
-        .then((res) => res.data);
+      const _res = await imageAPI.update(res.data._id, {
+        key: data.key,
+        category_id: query["id"] as string,
+      });
 
       mutate();
 
@@ -123,12 +122,10 @@ export const ResourcesListPage = () => {
 
   const handleEdit = async (data: IResourceForm) => {
     try {
-      const _res = await imageAPI
-        .update(modalData?.id as string, {
-          key: data.key,
-          category_id: query["id"] as string,
-        })
-        .then((res) => res.data);
+      const _res = await imageAPI.update(modalData?.id as string, {
+        key: data.key,
+        category_id: query["id"] as string,
+      });
 
       mutate();
 
@@ -139,7 +136,7 @@ export const ResourcesListPage = () => {
   };
 
   const onDelete = (id: string) => {
-    // console.log(id);
+    setDeleteData(id);
   };
 
   const onClose = () => {
@@ -149,6 +146,24 @@ export const ResourcesListPage = () => {
   const onRedirect = (e: any) => {
     e.preventDefault();
     push(CMS_ROUTES.CATEGORY.INDEX.path);
+  };
+
+  const onOk = async () => {
+    if (deleteData) {
+      const res = await imageAPI.delete(deleteData);
+
+      if (res.errorCode === 0) {
+        toast.success("Delete Successfull");
+        mutate();
+        onCancel();
+      } else {
+        toast.error("Delete Error");
+      }
+    }
+  };
+
+  const onCancel = () => {
+    setDeleteData(null);
   };
 
   useEffect(() => {
@@ -204,6 +219,8 @@ export const ResourcesListPage = () => {
           onClose={onClose}
         />
       )}
+
+      <CDeleteDialog open={!!deleteData} onOk={onOk} onCancel={onCancel} />
     </>
   );
 };

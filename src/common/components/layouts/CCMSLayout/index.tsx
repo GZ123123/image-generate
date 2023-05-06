@@ -24,7 +24,6 @@ import { initialHttp, setToken } from "src/utils/axios";
 import { useRouter } from "next/router";
 import { CMS_ROUTES } from "src/common/constants/routes";
 import Link from "next/link";
-import { ToastContainer } from "react-toastify";
 
 export const CCMSLayout = ({ children }: ICCMSLayoutProps) => {
   const { replace } = useRouter();
@@ -101,95 +100,79 @@ export const CCMSLayout = ({ children }: ICCMSLayoutProps) => {
   }
 
   return (
-    <>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        closeButton={false}
-        hideProgressBar
-        pauseOnFocusLoss={false}
-        draggable={false}
-        pauseOnHover={false}
-      />
-      <Box
-        component="div"
-        sx={{ display: "flex" }}
-        className="bg-gray-100 min-h-[100vh]"
+    <Box
+      component="div"
+      sx={{ display: "flex" }}
+      className="bg-gray-100 min-h-[100vh]"
+    >
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{
+          width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
+          ml: { sm: `${DRAWER_WIDTH}px` },
+          boxShadow: "none",
+        }}
       >
-        <CssBaseline />
-        <AppBar
-          position="fixed"
+        <Toolbar sx={{ display: { xs: "none", sm: "block" } }} />
+        <Toolbar sx={{ display: { sm: "none" } }}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={toggle}
+            sx={{ mr: 2, display: { sm: "none" } }}
+          >
+            <Bars3Icon width={20} />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div" className="uppercase">
+            {process.env.NEXT_PUBLIC_TITLE}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      <Box
+        component="nav"
+        sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
+        aria-label="mailbox folders"
+      >
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={isOpen}
+          onClose={toggle}
+          ModalProps={{ keepMounted: true }}
           sx={{
-            width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
-            ml: { sm: `${DRAWER_WIDTH}px` },
-            boxShadow: "none",
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: DRAWER_WIDTH,
+            },
           }}
         >
-          <Toolbar sx={{ display: { xs: "none", sm: "block" } }} />
-          <Toolbar sx={{ display: { sm: "none" } }}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={toggle}
-              sx={{ mr: 2, display: { sm: "none" } }}
-            >
-              <Bars3Icon width={20} />
-            </IconButton>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              className="uppercase"
-            >
-              {process.env.NEXT_PUBLIC_TITLE}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-
-        <Box
-          component="nav"
-          sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
-          aria-label="mailbox folders"
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: DRAWER_WIDTH,
+            },
+          }}
+          open
         >
-          <Drawer
-            container={container}
-            variant="temporary"
-            open={isOpen}
-            onClose={toggle}
-            ModalProps={{ keepMounted: true }}
-            sx={{
-              display: { xs: "block", sm: "none" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: DRAWER_WIDTH,
-              },
-            }}
-          >
-            {drawer}
-          </Drawer>
-          <Drawer
-            variant="permanent"
-            sx={{
-              display: { xs: "none", sm: "block" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: DRAWER_WIDTH,
-              },
-            }}
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Box>
-
-        <div className="flex-1 overflow-hidden py-6">
-          <Toolbar />
-          <Container maxWidth="lg">
-            <Suspense fallback={<CSpinner />}>{children}</Suspense>
-          </Container>
-        </div>
+          {drawer}
+        </Drawer>
       </Box>
-    </>
+
+      <div className="flex-1 overflow-hidden py-6">
+        <Toolbar />
+        <Container maxWidth="lg">
+          <Suspense fallback={<CSpinner />}>{children}</Suspense>
+        </Container>
+      </div>
+    </Box>
   );
 };
