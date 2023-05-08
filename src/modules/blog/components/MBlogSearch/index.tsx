@@ -6,8 +6,11 @@ import { IMBlogSearchProps } from "./type";
 import { useEffect } from "react";
 import { useToggle, useDimension, useDebounce } from "src/common/hooks";
 import { comfortaa } from "src/common/fonts";
+import { useRouter } from "next/router";
 
 export const MBlogSearch = ({ title, onSearch }: IMBlogSearchProps) => {
+  const { query } = useRouter();
+
   const { isOpen, toggle, close } = useToggle();
 
   const dimension = useDimension();
@@ -32,7 +35,7 @@ export const MBlogSearch = ({ title, onSearch }: IMBlogSearchProps) => {
         </h1>
         <div>
           <CInput
-            defaultValue={""}
+            defaultValue={query.q}
             onChange={onChange}
             aria-label="Search articles"
             type="text"

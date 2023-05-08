@@ -1,38 +1,35 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { blogAPIClient } from "src/apis/blog/client";
 import useSWR from "swr";
 import { MBlogArticle } from "../components/MBlogArticle";
 import { MBlogSearch } from "../components/MBlogSearch";
+import { CSpinner } from "src/common/components/others";
 
 export const MBlogTags = () => {
-  const { query } = useRouter();
+  const { query, push } = useRouter();
 
-  const [q, setQ] = useState<string>("");
+  const page = useMemo(() => parseInt(query["page"] as string) || 1, [query]);
 
-  const page = useMemo(() => {
-    return parseInt(query["page"] as string) || 1;
-  }, [query]);
-
-  const { data } = useSWR(
-    () => ["blogs", "tag", query.slug, page, q],
+  const { data, isLoading, mutate } = useSWR(
+    () =>
+      query?.q
+        ? ["blogs", "tag", query.slug, page]
+        : ["blogs", "tag", query.slug, page, query.q],
     () =>
       blogAPIClient
-        .getByHashtag(query.slug as string, { q, page })
+        .getByHashtag(query.slug as string, { q: query?.q as string, page })
         .then((res) => res.data)
   );
 
-  const blogs = useMemo(() => {
-    return data?.data ?? [];
-  }, [data]);
+  const blogs = useMemo(() => data?.data ?? [], [data]);
 
-  const pages = useMemo(() => {
-    return data?.pages ?? 1;
-  }, [data]);
+  const pages = useMemo(() => data?.pages ?? 1, [data]);
 
   const onSearch = (value: string) => {
-    setQ(value);
+    push({ pathname: `/tags/${query.slug}`, query: { q: value } });
+    setTimeout(mutate, 100);
   };
 
   return (
@@ -41,36 +38,53 @@ export const MBlogTags = () => {
 
       <div className="mt-4 border-t border-gray-200 dark:border-gray-700">
         <ul>
-          {blogs?.map((blog) => (
-            <li key={blog._id} className="py-4">
-              <MBlogArticle blog={blog} />
+          {isLoading ? (
+            <li
+              className="flex justify-center items-center"
+              style={{ height: "250px" }}
+            >
+              <CSpinner />
             </li>
-          ))}
+          ) : (
+            blogs?.map((blog) => (
+              <li key={blog._id} className="py-4">
+                <MBlogArticle blog={blog} />
+              </li>
+            ))
+          )}
         </ul>
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
           <nav className="flex justify-between">
-            <Link
-              aria-disabled={page === 1}
-              href={{
-                pathname: `/tags/${query.slug}`,
-                query: { page: page - 1 },
-              }}
-            >
-              <button rel="next">Previous</button>
-            </Link>
+            {page <= 1 ? (
+              <button>Previous</button>
+            ) : (
+              <Link
+                href={{
+                  pathname: `/tags/${query.slug}`,
+                  query: { ...query, page: page - 1 },
+                }}
+              >
+                <button rel="next">Previous</button>
+              </Link>
+            )}
 
             <span>
               {page} of {pages}
             </span>
-            <Link
-              aria-disabled={page === pages}
-              href={{
-                pathname: `/tags/${query.slug}`,
-                query: { page: page + 1 },
-              }}
-            >
-              <button rel="next">Next</button>
-            </Link>
+
+            {page >= pages ? (
+              <button>Next</button>
+            ) : (
+              <Link
+                aria-disabled={page === pages}
+                href={{
+                  pathname: `/tags/${query.slug}`,
+                  query: { ...query, page: page + 1 },
+                }}
+              >
+                <button rel="next">Next</button>
+              </Link>
+            )}
           </nav>
         </div>
       </div>
