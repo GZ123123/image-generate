@@ -73,7 +73,7 @@ export const CCMSLayout = ({ children }: ICCMSLayoutProps) => {
             {process.env.NEXT_PUBLIC_TITLE}
           </Typography>
           <CLink href={CMS_ROUTES.LOGOUT.INDEX.path}>
-            <Button variant="contained" color="warning">
+            <Button style={{ color: "white" }}>
               {CMS_ROUTES.LOGOUT.INDEX.title}
             </Button>
           </CLink>

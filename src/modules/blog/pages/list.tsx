@@ -1,6 +1,12 @@
 import useSWR from "swr";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { Breadcrumbs, Button, IconButton, Typography } from "@mui/material";
+import {
+  Breadcrumbs,
+  Button,
+  Chip,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { blogAPI } from "src/apis/blog";
@@ -41,17 +47,22 @@ const columns = ({
   { key: "title", label: "title", width: "500px" },
   { key: "created_by", label: "created by" },
   { key: "created_date", label: "created date" },
-  { key: "is_public", label: "public" },
+  {
+    key: "is_public",
+    label: "public",
+    render: (value: boolean) =>
+      value && <Chip label="Public" color="primary" />,
+  },
   {
     key: "hashtags",
     label: "hashtags",
     width: "400px",
-    render: (value) => (
-      <>
-        {(value as string[])?.map((v: string) => {
-          <span key={v}>{v}</span>;
-        })}
-      </>
+    render: (value: string[]) => (
+      <div className="flex gap-x-2">
+        {value?.map((v) => (
+          <Chip key={v} label={v} size="small" />
+        ))}
+      </div>
     ),
   },
 ];

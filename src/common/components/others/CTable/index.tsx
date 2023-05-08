@@ -7,6 +7,7 @@ import {
   TableCell,
   TableBody,
   TablePagination,
+  Pagination,
 } from "@mui/material";
 import { ICTableColumns, ICTableProps } from "./types";
 import { useMemo } from "react";
@@ -72,7 +73,7 @@ export const CTable = ({
 
   const onPageChange = (_: any, page: number) => {
     if (pagination && onChange) {
-      onChange({ ...pagination, page: page + 1 });
+      onChange({ ...pagination, page });
     }
   };
 
@@ -83,42 +84,50 @@ export const CTable = ({
   };
 
   return (
-    <TableContainer
-      key={name}
-      component={Paper}
-      className="w-full overflow-auto"
-    >
-      <Table stickyHeader style={{ tableLayout: "fixed" }}>
-        <TableHead>
-          <TableRow>
-            {_columns.map(({ key, label, width, sticky }) => (
-              <TableCell
-                key={`${name}${key}`}
-                className={classNames(
-                  "capitalize",
-                  sticky && `sticky bg-white z-10`
-                )}
-                style={{ width, left: sticky }}
-              >
-                {label}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>{render}</TableBody>
-      </Table>
+    <>
+      <TableContainer
+        key={name}
+        component={Paper}
+        className="w-full overflow-auto relative"
+      >
+        <Table stickyHeader style={{ tableLayout: "fixed" }}>
+          <TableHead>
+            <TableRow>
+              {_columns.map(({ key, label, width, sticky }) => (
+                <TableCell
+                  key={`${name}${key}`}
+                  className={classNames(
+                    "capitalize",
+                    sticky && `sticky bg-white z-10`
+                  )}
+                  style={{ width, left: sticky }}
+                >
+                  {label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>{render}</TableBody>
+        </Table>
+      </TableContainer>
       {pagination && (
-        <div className="flex justify-end p-4 bg-white">
-          <TablePagination
+        <div className="mt-2 flex justify-end items-center">
+          <Pagination
+            count={pagination.pages || 0}
+            page={pagination.page}
+            onChange={onPageChange}
+          />
+
+          {/* <TablePagination
             component={"div"}
             count={pagination.total || 0}
             page={pagination.page - 1}
             rowsPerPage={pagination.size || 10}
             onPageChange={onPageChange}
             onRowsPerPageChange={onSizeChange}
-          />
+          /> */}
         </div>
       )}
-    </TableContainer>
+    </>
   );
 };

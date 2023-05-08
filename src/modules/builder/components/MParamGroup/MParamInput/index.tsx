@@ -35,7 +35,7 @@ export const MParamInput = ({
         className="right-0 origin-top-right absolute z-50 mt-2 w-64 rounded-md dark:bg-gray-900 bg-white border dark:border-gray-900 border-gray-300 transform opacity-100 scale-100"
       >
         <div className="p-3">
-          <div>{name}</div>
+          <div>{label}: </div>
           <div className="flex">
             <Controller
               control={control}
