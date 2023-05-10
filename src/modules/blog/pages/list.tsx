@@ -1,10 +1,16 @@
 import useSWR from "swr";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import {
+  MagnifyingGlassIcon,
+  PencilSquareIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import {
   Breadcrumbs,
   Button,
+  Card,
   Chip,
   IconButton,
+  Paper,
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
@@ -20,6 +26,8 @@ import { CMS_ROUTES } from "src/common/constants/routes";
 import { IBlogsReponse } from "src/apis/blog/types";
 import { DEFAULT_PAGINATION } from "src/common/constants/default";
 import { toast } from "react-toastify";
+import { CInput } from "src/common/components/controls";
+import { useDebounce } from "src/common/hooks";
 
 const columns = ({
   onEdit,
@@ -70,14 +78,16 @@ const columns = ({
 export const BlogListPage = () => {
   const { push } = useRouter();
 
+  const [q, setQ] = useState("");
+
   const [pagination, setPagination] =
     useState<ICTablePaginationProps>(DEFAULT_PAGINATION);
 
   const [deleteData, setDeleteData] = useState<string | null>(null);
 
   const { data, mutate } = useSWR(
-    ["blogs", pagination.size, pagination.page],
-    () => blogAPI.get(pagination)
+    ["blogs", pagination.size, pagination.page, q],
+    () => blogAPI.get({ ...pagination, q })
   );
 
   const blogs = useMemo(() => {
@@ -122,6 +132,11 @@ export const BlogListPage = () => {
     });
   }, [data]);
 
+  const onSearch = useDebounce((e: any) => {
+    setQ(e.target.value);
+    setPagination({ ...pagination, page: 1, pages: 0 });
+  }, 400);
+
   return (
     <>
       <div className="flex justify-between mb-4">
@@ -131,9 +146,18 @@ export const BlogListPage = () => {
           </Typography>
         </Breadcrumbs>
         <Button variant="contained" onClick={onCreate}>
-          {" "}
           Create
         </Button>
+      </div>
+
+      <div className="py-4 flex justify-end">
+        <Paper>
+          <CInput
+            onChange={onSearch}
+            className="max-w-[250px] px-2 py-1"
+            append={<MagnifyingGlassIcon width={20} />}
+          />
+        </Paper>
       </div>
 
       <CTable

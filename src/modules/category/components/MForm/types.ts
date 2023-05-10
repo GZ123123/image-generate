@@ -15,4 +15,6 @@ export interface ICategoryForm {
   image?: any;
 
   name?: string;
+
+  sort_order?: number;
 }

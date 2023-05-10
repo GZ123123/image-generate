@@ -3,6 +3,7 @@ import { CDropdown } from "src/common/components/controls";
 import { IMParamGroupProps } from "../type";
 import { useMemo } from "react";
 import { CSelect } from "src/common/components/controls/CSelect";
+import { classNames } from "src/utils/class-names";
 
 export const MParamSelect = ({
   label,
@@ -28,8 +29,14 @@ export const MParamSelect = ({
 
   return (
     <>
-      <label className="text-gray-500">
-        {label}{" "}
+      <label>
+        <span
+          className={classNames(
+            value ? "text-black dark:text-white font-semibold" : "text-gray-500"
+          )}
+        >
+          {label}{" "}
+        </span>
         {value && (
           <span className="text-gray-500">
             {name} {value}

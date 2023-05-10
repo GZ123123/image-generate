@@ -1,6 +1,7 @@
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { IMParamGroupProps } from "../type";
 import { CSelect } from "src/common/components/controls/CSelect";
+import { classNames } from "src/utils/class-names";
 
 export const MParamCheckbox = ({
   label,
@@ -10,8 +11,15 @@ export const MParamCheckbox = ({
 }: IMParamGroupProps) => {
   return (
     <>
-      <label className="text-gray-500">
-        {label} {value && <span className="text-gray-500">{name}</span>}
+      <label>
+        <span
+          className={classNames(
+            value ? "text-black dark:text-white font-semibold" : "text-gray-500"
+          )}
+        >
+          {label}{" "}
+        </span>{" "}
+        {value && <span className="text-gray-500">{name}</span>}
       </label>
       <CSelect
         options={[

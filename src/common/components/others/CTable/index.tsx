@@ -22,7 +22,7 @@ export const CTable = ({
   onChange,
 }: ICTableProps) => {
   const _columns = useMemo<ICTableColumns[]>(() => {
-    let sticky = 0;
+    let sticky = 50;
 
     return columns.map((column): ICTableColumns => {
       const width = column.width
@@ -43,10 +43,21 @@ export const CTable = ({
     });
   }, [columns]);
 
+  const caculateIndex = (index: number) => {
+    return index + 1 + ((pagination?.page || 1) - 1) * (pagination?.size || 10);
+  };
+
   const render = useMemo(() => {
     if (data.length) {
-      return data.map((item) => (
+      return data.map((item, index) => (
         <TableRow key={`${name}-${item[rowKey || "_id"]}`}>
+          <TableCell
+            key={`${name}-index`}
+            className="sticky bg-white z-10"
+            style={{ left: 0 }}
+          >
+            <div>{caculateIndex(index)}</div>
+          </TableCell>
           {_columns.map((column) => (
             <TableCell
               key={`${name}-${column["key"]}-${item[rowKey || "_id"]}`}
@@ -93,6 +104,13 @@ export const CTable = ({
         <Table stickyHeader style={{ tableLayout: "fixed" }}>
           <TableHead>
             <TableRow>
+              <TableCell
+                key={`${name}index`}
+                className={classNames(`capitalize sticky bg-white z-10`)}
+                style={{ width: 50, left: 0 }}
+              >
+                #
+              </TableCell>
               {_columns.map(({ key, label, width, sticky }) => (
                 <TableCell
                   key={`${name}${key}`}

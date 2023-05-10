@@ -95,6 +95,8 @@ export const CategoryListPage = () => {
 
       const _res = await categoryAPI.create(_data);
 
+      setPagination({ ...pagination, pages: 0 });
+
       mutate();
 
       return _res;

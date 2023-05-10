@@ -4,7 +4,6 @@ import {
   Breadcrumbs,
   Button,
   IconButton,
-  Link,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
@@ -56,7 +55,7 @@ const columns = ({
   },
   {
     key: "url",
-    label: "url",
+    label: "Image",
     width: "75px",
     render: (value: string, record: any) => (
       <Image src={value} alt={record.name} width={100} height={100} />
@@ -108,6 +107,8 @@ export const ResourcesListPage = () => {
         key: data.key,
         category_id: query["id"] as string,
       });
+
+      setPagination({ ...pagination, pages: 0 });
 
       mutate();
 

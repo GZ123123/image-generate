@@ -30,6 +30,7 @@ export const getServerSideProps = withAuthSession(async ({ req, res }) => {
             "blogs",
             DEFAULT_PAGINATION.size,
             DEFAULT_PAGINATION.total,
+            "",
           ])]: blogs,
         },
       },

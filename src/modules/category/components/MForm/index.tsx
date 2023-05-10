@@ -9,6 +9,7 @@ export const MForm = ({ category, onSubmit, onClose }: IMFormProps) => {
   const { control, handleSubmit } = useForm<ICategoryForm>(onSubmit, {
     defaultValues: {
       name: category?.name ?? "",
+      sort_order: 1,
     },
     success: () => setTimeout(onClose, 300),
   });
@@ -47,6 +48,15 @@ export const MForm = ({ category, onSubmit, onClose }: IMFormProps) => {
               name="name"
               render={({ field }) => (
                 <CInput label="name" id="name" {...field} />
+              )}
+            />
+          </div>
+          <div className="px-3 pb-3">
+            <Controller
+              control={control}
+              name="sort_order"
+              render={({ field }) => (
+                <CInput type="number" label="sort" id="sort_order" {...field} />
               )}
             />
           </div>
