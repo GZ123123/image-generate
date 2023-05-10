@@ -17,6 +17,7 @@ const params: IMBuilderParamItem[] = [
     label: "Version",
     type: PARAM_TYPE.SELECT,
     options: [
+      { value: "5.1", label: "v5.1" },
       { value: "5", label: "v5" },
       { value: "4", label: "v4" },
       { value: "3", label: "v3" },

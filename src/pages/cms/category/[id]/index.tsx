@@ -28,7 +28,10 @@ export const getServerSideProps = withAuthSession(async (context: any) => {
     .getById(context.params.id)
     .then((res) => res.data);
 
-  const images = await imageAPI.get(DEFAULT_PAGINATION);
+  const images = await imageAPI.get({
+    ...DEFAULT_PAGINATION,
+    category_id: category._id,
+  });
 
   return {
     props: {
@@ -36,7 +39,7 @@ export const getServerSideProps = withAuthSession(async (context: any) => {
         [unstable_serialize(["category", context.params.id])]: category,
         [unstable_serialize([
           "images",
-          context.params.id,
+          category._id,
           DEFAULT_PAGINATION.size,
           DEFAULT_PAGINATION.page,
         ])]: images,

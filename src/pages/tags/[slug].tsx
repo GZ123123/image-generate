@@ -15,6 +15,8 @@ export default function Tags({ fallback }: ITagsProps) {
 }
 
 export async function getServerSideProps(context: any) {
+  console.log(context.params.slug);
+
   const blogs = await blogAPIClient.getByHashtag(context.params.slug, {
     page: 1,
   });

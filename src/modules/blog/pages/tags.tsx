@@ -28,7 +28,7 @@ export const MBlogTags = () => {
   const pages = useMemo(() => data?.pages ?? 1, [data]);
 
   const onSearch = (value: string) => {
-    push({ pathname: `/tags/${query.slug}`, query: { q: value } });
+    push({ pathname: window.location.pathname, query: { q: value } });
     setTimeout(mutate, 100);
   };
 

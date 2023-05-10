@@ -62,9 +62,10 @@ export const MBlogForm = ({
           name="is_public"
           render={({ field }) => (
             <FormControlLabel
-              control={<Switch defaultChecked />}
+              control={<Switch checked={field.value} />}
               label="Public"
               {...field}
+              onChange={(e, v) => field.onChange(v)}
             />
           )}
         />
