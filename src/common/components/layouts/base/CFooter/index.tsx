@@ -66,7 +66,7 @@ export const CFooter = () => {
               </Link>
             </div> */}
           </div>
-          {/* <div className="basis-1/3">
+          <div className="basis-1/3">
             <div className="mb-3 text-slate-800 dark:text-slate-200 font-bold">
               About
             </div>
@@ -90,7 +90,7 @@ export const CFooter = () => {
                 Privacy
               </span>
             </div>
-          </div> */}
+          </div>
           <div className="basis-1/3">
             <div className="mb-3 text-slate-800 dark:text-slate-200 font-bold">
               Social
