@@ -125,6 +125,37 @@ input.shadow-none:focus {
   box-shadow: none;
 }
 
+figure.image img {
+  margin: auto;
+}
+
+figure.image.image-style-side {
+  float: right;
+  max-width: 50%;
+}
+
+.ck-content.client {
+  height: unset;
+}
+
+.ck-content .image {
+  clear: both;
+  display: table;
+  margin: 0.9em auto;
+  margin-top: 0.9em;
+  margin-right: auto;
+  margin-bottom: 0.9em;
+  margin-left: auto;
+  min-width: 50px;
+  text-align: center;
+}
+
+.ck-content .image-inline {
+  align-items: flex-start;
+  display: inline-flex;
+  max-width: 100%;
+}
+
 .dark input {
   background-color: transparent;
 }

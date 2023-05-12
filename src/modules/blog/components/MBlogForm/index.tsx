@@ -2,7 +2,6 @@ import { Button, FormControlLabel, Switch } from "@mui/material";
 import { Controller } from "react-hook-form";
 import { hashTagAPI } from "src/apis/hashtag";
 import {
-  CEditor,
   CInput,
   CTextArea,
   CInfinitySelect,
@@ -12,6 +11,12 @@ import { IBlogRequest } from "src/apis/blog/types";
 import { IHashtagResponse } from "src/apis/hashtag/types";
 import { IMBlogFormProps } from "./types";
 import { useForm } from "src/utils/form";
+import dynamic from "next/dynamic";
+
+const CEditor = dynamic(
+  () => import("src/common/components/controls/CEditor").then((m) => m.CEditor),
+  { ssr: false }
+);
 
 export const MBlogForm = ({
   initialTags,

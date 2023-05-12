@@ -1,5 +1,7 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
+import Editor from "ckeditor5-custom-build/build/ckeditor";
 import { ICEditor } from "./types";
+import { uploadPlugin } from "./function";
 
 const CEditorInner = (
   { id, label, onChange, name, value }: ICEditor,
@@ -7,7 +9,7 @@ const CEditorInner = (
 ) => {
   const editorRef = useRef<any>(null);
 
-  const { CKEditor, ClassicEditor } = editorRef.current || {};
+  const { CKEditor } = editorRef.current || {};
   const [isLoaded, setLoaded] = useState(false);
 
   const handleChange = (_: any, editor: any) => {
@@ -17,7 +19,6 @@ const CEditorInner = (
   useEffect(() => {
     editorRef.current = {
       CKEditor: require("@ckeditor/ckeditor5-react").CKEditor, // v3+
-      ClassicEditor: require("@ckeditor/ckeditor5-build-classic"),
     };
 
     setLoaded(true);
@@ -32,10 +33,13 @@ const CEditorInner = (
       )}
       {isLoaded ? (
         <CKEditor
-          ref={ref}
           id={id}
+          ref={ref}
           name={name}
-          editor={ClassicEditor}
+          config={{
+            extraPlugins: [uploadPlugin],
+          }}
+          editor={Editor}
           data={value}
           onChange={handleChange}
         />

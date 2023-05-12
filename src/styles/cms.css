@@ -11,7 +11,7 @@
 
 .ck-content {
   min-height: 200px;
-  height: min(400px, 80vh);
+  height: min(800px, 80vh);
 }
 
 .MuiFormControl-root .MuiInputBase-root {

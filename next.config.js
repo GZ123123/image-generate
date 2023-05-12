@@ -26,7 +26,7 @@ const nextConfig = {
         pathname: process.env.IMAGE_PATHNAME
       }
     ] 
-  }
+  },
 }
 
 module.exports = withBundleAnalyzer(nextConfig)
