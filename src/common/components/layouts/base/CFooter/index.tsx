@@ -35,12 +35,16 @@ export const CFooter = () => {
               </Link>
             </div>
             <div className="mt-1">
+              <Link className="text-slate-500 hover:text-magenta" href="/blog">
+                Blog
+              </Link>
+            </div>
+            <div className="mt-1">
               <Link
                 className="text-slate-500 hover:text-magenta"
-                target="_BLANK"
-                href="/builder"
+                href="/generate"
               >
-                Blog
+                Generate
               </Link>
             </div>
             {/* <div className="mt-1">
