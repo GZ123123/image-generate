@@ -9,7 +9,7 @@ export const MBlogArticle = ({ blog }: IMBlogArticleProps) => {
       <dl>
         <dt className="sr-only">Published on</dt>
         <dd className="text-base font-medium leading-6">
-          <time dateTime={new Date(blog.created_date).toISOString()}>
+          <time dateTime={new Date(blog.created_date).toString()}>
             {blog.created_date}
           </time>
         </dd>

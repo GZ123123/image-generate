@@ -11,7 +11,7 @@ export const MBlogDetail = ({ blog }: { blog: IPublicBlogResponse }) => {
               <div>
                 <dt className="sr-only">Published on</dt>
                 <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                  <time dateTime={new Date(blog.created_date).toISOString()}>
+                  <time dateTime={new Date(blog.created_date).toString()}>
                     {blog.created_date}
                   </time>
                 </dd>
