@@ -24,7 +24,7 @@ export const MResourceDetailPage = ({
           </p>
           <p>
             And if you want to take your designs to the next level, you can use
-            our <Link href="/builder">TMI Prompt Builder Tool</Link> to select
+            our <Link href="/builder">ALPHA Prompt Builder Tool</Link> to select
             from a range of prompts from our library and create truly unique
             compositions..
           </p>

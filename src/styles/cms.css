@@ -14,6 +14,12 @@
   height: min(800px, 80vh);
 }
 
+.ck-content ol,
+.ck-content ul,
+.ck-content menu {
+  padding: inherit;
+}
+
 .MuiFormControl-root .MuiInputBase-root {
   padding: 4px 8px;
 }

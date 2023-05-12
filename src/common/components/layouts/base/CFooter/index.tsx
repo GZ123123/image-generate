@@ -20,17 +20,30 @@ export const CFooter = () => {
             reserved
           </div>
         </div>
-        <div className="basis-2/3 flex">
+        <div className="basis-2/3 flex justify-start md:justify-end">
           <div className="basis-1/3">
             <div className="mb-3 text-slate-800 dark:text-slate-200 font-bold">
               Products
             </div>
             <div className="mt-1">
-              <span className="text-slate-500 hover:text-magenta cursor-pointer">
+              <Link
+                className="text-slate-500 hover:text-magenta"
+                target="_BLANK"
+                href="/builder"
+              >
                 Builder
-              </span>
+              </Link>
             </div>
             <div className="mt-1">
+              <Link
+                className="text-slate-500 hover:text-magenta"
+                target="_BLANK"
+                href="/builder"
+              >
+                Blog
+              </Link>
+            </div>
+            {/* <div className="mt-1">
               <Link
                 className="text-slate-500 hover:text-magenta"
                 target="_BLANK"
@@ -47,9 +60,9 @@ export const CFooter = () => {
               >
                 Android
               </Link>
-            </div>
+            </div> */}
           </div>
-          <div className="basis-1/3">
+          {/* <div className="basis-1/3">
             <div className="mb-3 text-slate-800 dark:text-slate-200 font-bold">
               About
             </div>
@@ -73,7 +86,7 @@ export const CFooter = () => {
                 Privacy
               </span>
             </div>
-          </div>
+          </div> */}
           <div className="basis-1/3">
             <div className="mb-3 text-slate-800 dark:text-slate-200 font-bold">
               Social
@@ -82,7 +95,7 @@ export const CFooter = () => {
               <Link
                 className="text-slate-500 hover:text-magenta"
                 target="_BLANK"
-                href="/builder"
+                href="https://discord.gg/bdVtADUg"
               >
                 Discord
               </Link>
@@ -91,27 +104,18 @@ export const CFooter = () => {
               <Link
                 className="text-slate-500 hover:text-magenta"
                 target="_BLANK"
-                href="/builder"
+                href="https://www.facebook.com/aithucchien"
               >
-                Youtube
+                Facebook
               </Link>
             </div>
             <div className="mt-1">
               <Link
                 className="text-slate-500 hover:text-magenta"
                 target="_BLANK"
-                href="/builder"
+                href="https://zalo.me/g/wzbuks983"
               >
-                TikTok
-              </Link>
-            </div>
-            <div className="mt-1">
-              <Link
-                className="text-slate-500 hover:text-magenta"
-                target="_BLANK"
-                href="/builder"
-              >
-                Instagram
+                Zalo
               </Link>
             </div>
           </div>
