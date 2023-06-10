@@ -21,7 +21,7 @@ export const BlogPage = () => {
 
   const blogs = useMemo(() => data?.data || [], [data]);
 
-  const pages = useMemo(() => data?.pages || 0, [data]);
+  const pages = useMemo(() => data?.pages || 1, [data]);
 
   const onSearch = (value: string) => {
     push({ query: { q: value } });
@@ -41,12 +41,16 @@ export const BlogPage = () => {
             >
               <CSpinner />
             </li>
-          ) : (
+          ) : blogs.length ? (
             blogs?.map((blog) => (
               <li key={blog._id} className="py-4">
                 <MBlogArticle blog={blog} />
               </li>
             ))
+          ) : (
+            <li className="min-h-[250px] text-2xl flex justify-center items-center">
+              Không có dữ liệu{" "}
+            </li>
           )}
         </ul>
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">

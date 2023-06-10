@@ -15,7 +15,11 @@ export default function Blog({ fallback }: IBlogProps) {
 }
 
 export async function getServerSideProps() {
-  const blogs = await blogAPIClient.get({ page: 1, pages: 0, size: 10 });
+  try {
+    const blogs = await blogAPIClient.get({ page: 1, pages: 0, size: 10 });
 
-  return { props: { fallback: { blogs: blogs.data } } };
+    return { props: { fallback: { blogs: blogs.data } } };
+  } catch (e) {
+    return { props: { fallback: { blogs: [] } } };
+  }
 }

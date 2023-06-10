@@ -11,23 +11,9 @@ export const blogAPIClient = {
   async get(
     params: IPublicBlogParams
   ): Promise<IPaginationResponse<IPublicBlogsResponse>> {
-    try {
-      return http.get("/blogs/client", {
-        params: { ...params, pages: 0, size: 10 },
-      });
-    } catch (err) {
-      return {
-        data: {
-          pages: 0,
-          page: 0,
-          total: 0,
-          data: [],
-        },
-        errorCode: 0,
-        message: "",
-        errors: "",
-      };
-    }
+    return http.get("/blogs/client", {
+      params: { ...params, pages: 0, size: 10 },
+    });
   },
 
   getBySlug(slug: string): Promise<IAPIResponse<IPublicBlogResponse>> {
