@@ -4,10 +4,20 @@ services:
     image: gz123123/image-generate:latest
 
     environment:
-      - NEXT_PUBLIC_API=127.0.0.1:3001
+      - NEXT_PUBLIC_API_URL='https://imiprompt.vtcode.vn/api'
+      - NEXT_PUBLIC_TITLE="ALPHA Prompt"
+
+      - NEXT_SESSION_TTL=3600
+      - NEXT_SESSION_COOKIE='tmi_cookie'
+      - NEXT_SESSION_PASSWORD='complex_password_at_least_32_characters_long'
+
+      - IMAGE_PROTOCOL='https'
+      - IMAGE_HOSTNAME='*'
+      - IMAGE_PORT=''
+      - IMAGE_PATHNAME='/*'
 
     volumes:
       - ./public:/src/public
-    
+
     ports:
       - 3000:300
