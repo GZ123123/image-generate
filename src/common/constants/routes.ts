@@ -73,4 +73,10 @@ export const CMS_ROUTES = {
       title: "Update Blogs",
     },
   },
+  BLOG_COMMENT: {
+    INDEX: {
+      path: "/cms/blog-comments",
+      title: "Blog Comments",
+    },
+  },
 };
