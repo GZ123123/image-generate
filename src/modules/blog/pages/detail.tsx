@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { IPublicBlogResponse } from "src/apis/blog/types";
+import { MBlogComment } from 'src/modules/blog-comment/components/MBlogClientComments';
 
 export const MBlogDetail = ({ blog }: { blog: IPublicBlogResponse }) => {
   return (
@@ -63,6 +64,8 @@ export const MBlogDetail = ({ blog }: { blog: IPublicBlogResponse }) => {
                 dangerouslySetInnerHTML={{ __html: blog.content }}
               ></div>
             </div>
+
+            <MBlogComment blogId={blog._id} className="py-8" />
           </div>
 
           <footer>
