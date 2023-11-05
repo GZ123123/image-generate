@@ -23,7 +23,7 @@ export const imageAPIClient = {
   mediaUpload(file: File): Promise<IAPIResponse<IImageUploadResponse>> {
     return http.post(
       "/media/upload",
-      { file, bucket_name: "bucket" },
+      { file, bucket_name: "bucket-tmtprompt" },
       { headers: { "Content-Type": "multipart/form-data;" } }
     );
   },

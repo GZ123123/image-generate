@@ -1,9 +1,9 @@
 import { ReactElement } from "react";
 import { CCMSLayout } from "src/common/components/layouts";
-import { MBlogCreatePage } from "src/modules/blog";
+import { MBookCreatePage } from 'src/modules/book/pages/create';
 
-export default function BlogCreate() {
-  return <MBlogCreatePage />;
+export default function BookCreate() {
+  return <MBookCreatePage />;
 }
 
-BlogCreate.getLayout = (page: ReactElement) => <CCMSLayout>{page}</CCMSLayout>;
+BookCreate.getLayout = (page: ReactElement) => <CCMSLayout>{page}</CCMSLayout>;
