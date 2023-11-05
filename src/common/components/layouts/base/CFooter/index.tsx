@@ -72,24 +72,24 @@ export const CFooter = () => {
             </div>
             <div className="mt-1">
               <span className="text-slate-500 hover:text-magenta cursor-pointer">
-                Home
+                234 Ngo Tat To, Phuong 22, Quan Binh Thanh, Tp.HCM
               </span>
             </div>
             <div className="mt-1">
               <span className="text-slate-500 hover:text-magenta cursor-pointer">
-                Contact
+                Email: <a href="mailto:tmtprompt@gmail.com">tmtprompt@gmail.com</a>
               </span>
             </div>
             <div className="mt-1">
               <span className="text-slate-500 hover:text-magenta cursor-pointer">
-                Blog
+                SĐT/Zalo: <a href="tel:0836384168">08.36.38.41.68</a> 
               </span>
             </div>
-            <div className="mt-1">
+            {/* <div className="mt-1">
               <span className="text-slate-500 hover:text-magenta cursor-pointer">
                 Privacy
               </span>
-            </div>
+            </div> */}
           </div>
           <div className="basis-1/3">
             <div className="mb-3 text-slate-800 dark:text-slate-200 font-bold">
