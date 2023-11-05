@@ -54,7 +54,6 @@ export const MImageSelector = ({ maxFileSize, label, value, defaultUrl, onChange
       const response = await imageAPIClient.mediaUpload(file);
 
       setPreviewUrl(response.data.url ?? URL.createObjectURL(file));
-      console.log(response);
       onChange && onChange(response.data._id);
     } catch (error) {
       toast.error('Someting error');

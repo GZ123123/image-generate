@@ -66,7 +66,7 @@ const columns = ({
   { key: "modified_date", label: "created date" },
   {
     key: "is_pin",
-    label: "public",
+    label: "Pin?",
     render: (value: boolean) =>
       value && <Chip label="Pin" color="primary" />,
   },

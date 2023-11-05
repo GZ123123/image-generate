@@ -11,6 +11,7 @@ import { ICreateOrUpdateBookParams } from 'src/apis/book/types';
 import { MImageSelector } from './ImageSelector';
 
 export const MBookForm = ({
+  defaultImageUrl,
   value,
   onSubmit,
   onCancel,
@@ -19,8 +20,6 @@ export const MBookForm = ({
     defaultValues: { ...value },
     resolver: bookCreateResolver,
   });
-
-  console.log(value, formState);
 
   return (
     <>
@@ -46,7 +45,8 @@ export const MBookForm = ({
           render={({ field }) => (
             <MImageSelector 
               label="Book Image" 
-              value={field.value} 
+              value={field.value}
+              defaultUrl={defaultImageUrl} 
               onChange={field.onChange} 
             />
           )}

@@ -6,4 +6,5 @@ export interface IMBookFormProps {
   onCancel: () => void;
   value?: ICreateOrUpdateBookParams;
   edit?: boolean;
+  defaultImageUrl?: string;
 }

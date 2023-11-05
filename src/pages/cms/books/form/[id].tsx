@@ -1,56 +1,52 @@
 import { ReactElement } from "react";
-import { blogAPI } from "src/apis";
-import { IBlogRequest } from "src/apis/blog/types";
-import { IHashtagResponse } from "src/apis/hashtag/types";
+import { bookAPI } from "src/apis";
+import { IBookResponse } from 'src/apis/book/types';
 import { CCMSLayout } from "src/common/components/layouts";
 import { CMS_ROUTES } from "src/common/constants/routes";
-import { MBlogUpdatePage } from "src/modules/blog";
+import { MBookUpdatePage } from "src/modules/book/pages/update";
 import { withAuthSession } from "src/utils/session";
 
-interface IBlogUpdate {
-  id: string;
-
-  blog: IBlogRequest;
-
-  initialTags: IHashtagResponse[];
+export default function BookUpdate({ id, book }: { id: string, book: IBookResponse }) {
+  return (
+    <MBookUpdatePage 
+      id={id} 
+      book={{
+        image_id: book.image._id,
+        name: book.name,
+        description: book.description,
+        url: book.url,
+        is_pin: book.is_pin,
+      }} 
+      defaultImageUrl={book.image.url} 
+    />
+  );
 }
 
-export default function BlogUpdate({ id, blog, initialTags }: IBlogUpdate) {
-  return <MBlogUpdatePage id={id} blog={blog} initialTags={initialTags} />;
-}
-
-BlogUpdate.getLayout = (page: ReactElement) => <CCMSLayout>{page}</CCMSLayout>;
+BookUpdate.getLayout = (page: ReactElement) => <CCMSLayout>{page}</CCMSLayout>;
 
 export const getServerSideProps = withAuthSession(async (context: any) => {
   try {
-    const res = await blogAPI.getById(context.params.id);
+    const res = await bookAPI.getById(context.params.id);
+
     if (!res?.data?._id) {
       return {
         redirect: {
-          destination: CMS_ROUTES.BLOG.INDEX.path,
+          destination: CMS_ROUTES.BOOK.INDEX.path,
           permanent: true,
         },
       };
     }
 
-    const blog: IBlogRequest = {
-      ...res.data,
-      hashtag_ids: res.data.hashtags?.map(({ _id }) => _id) ?? [],
-    };
-
-    const tags = res.data.hashtags ?? [];
-
     return {
       props: {
         id: context.params.id,
-        blog,
-        initalTags: tags,
+        book: res.data,
       },
     };
   } catch {
     return {
       redirect: {
-        destination: CMS_ROUTES.BLOG.INDEX.path,
+        destination: CMS_ROUTES.BOOK.INDEX.path,
         permanent: true,
       },
     };
