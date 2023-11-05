@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { IPublicBlogResponse } from "src/apis/blog/types";
 import { MBlogComment } from 'src/modules/blog-comment/components/MBlogClientComments';
+import { MBookClient } from 'src/modules/book/components/MBookClient';
 
 export const MBlogDetail = ({ blog }: { blog: IPublicBlogResponse }) => {
   return (
@@ -60,10 +61,12 @@ export const MBlogDetail = ({ blog }: { blog: IPublicBlogResponse }) => {
           <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
             <div className="prose prose-li:my-1 prose-pre:my-2 prose-img:my-2 text-base sm:text-xl leading-normal sm:leading-relaxed max-w-none pt-10 pb-8 dark:prose-dark">
               <div
-                className="ck-content client"
+                className="ck-content client" 
                 dangerouslySetInnerHTML={{ __html: blog.content }}
               ></div>
             </div>
+
+            <MBookClient />
 
             <MBlogComment blogId={blog._id} className="py-8" />
           </div>

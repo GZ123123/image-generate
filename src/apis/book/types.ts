@@ -2,6 +2,16 @@ import { IPaginationParams, ISearchParams } from "src/common/interfaces";
 
 export interface IBookParams extends IPaginationParams, ISearchParams {}
 
+export interface IPublicBookResponse {
+  _id: string;
+
+  name: string;
+
+  description: string;
+
+  image_url: string | null;
+}
+
 export interface IBooksResponse {
   _id: string;
 
