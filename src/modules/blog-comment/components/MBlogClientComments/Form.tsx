@@ -70,6 +70,8 @@ export const MBlogCommentForm = ({ blogId, parentId, onCreated }: IMBlogCommentF
     await blogCommentAPI.create(value);
 
     onCreated && onCreated();
+
+    reset();
   };
 
   useEffect(() => {

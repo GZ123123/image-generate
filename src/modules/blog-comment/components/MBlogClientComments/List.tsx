@@ -5,7 +5,7 @@ import { blogCommentAPIClient } from 'src/apis/blog-comment/client';
 import useSWRInfinite from 'swr/infinite';
 import { MBlogCommentForm } from './Form';
 
-const DEFAULT_COMMENT_PER_PAGE: number = 1;
+const DEFAULT_COMMENT_PER_PAGE: number = 10;
 
 const MBlogCommentChildList = (
   { blogId, disableReply, comment }: 

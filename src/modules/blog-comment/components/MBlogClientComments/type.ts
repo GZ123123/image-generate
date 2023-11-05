@@ -10,8 +10,6 @@ export interface IMBlogCommentListProps extends Pick<IMBlogCommentProps, 'blogId
   className?: string;
 }
 
-export interface IMBlogCommentItemProps {}
-
 export interface IMBlogCommentFormProps extends Pick<IMBlogCommentProps, 'blogId'> {
   parentId?: string;
   onCreated?: () => void;
