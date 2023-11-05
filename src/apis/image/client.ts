@@ -19,4 +19,12 @@ export const imageAPIClient = {
       { headers: { "Content-Type": "multipart/form-data;" } }
     );
   },
+
+  mediaUpload(file: File): Promise<IAPIResponse<IImageUploadResponse>> {
+    return http.post(
+      "/media/upload",
+      { file, bucket_name: "bucket" },
+      { headers: { "Content-Type": "multipart/form-data;" } }
+    );
+  },
 };
