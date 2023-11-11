@@ -12,9 +12,11 @@ function uploadAdapter(loader: any) {
               return resolve({
                 default: res?.data?.url,
               });
+            } else {
+              reject('Empty url uploaded.');
             }
           } catch (err) {
-            reject(err);
+            reject('Upload error.');
           }
         });
       });

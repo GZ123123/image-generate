@@ -4,7 +4,13 @@ import { bookAPIClient } from 'src/apis/book/client';
 import { classNames } from 'src/utils/class-names';
 import useSWR from 'swr';
 
-export const MBookClient = () => {
+export const MBookClient = ({ 
+  className = 'md:flex-row flex-col gap-4 sm:gap-6',
+  borderColor = 'border-gray-600'
+}: { 
+  className?: string;
+  borderColor?: string; 
+}) => {
   const [message, setMessage] = useState<{ type: 'success' | 'error', value: string } | null>(null);
 
   const { data } = useSWR(['book_avaiable'], () => bookAPIClient.get());
@@ -41,8 +47,8 @@ export const MBookClient = () => {
   }
 
   return (
-    <div className="border border-gray-600 rounded-lg p-4 sm:p-6">
-      <div className="flex md:flex-row flex-col gap-4 sm:gap-6">
+    <div className={`border ${borderColor} rounded-lg p-4 sm:p-6`}>
+      <div className={`flex ${className}`}>
         {book.image_url && (
           <div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
