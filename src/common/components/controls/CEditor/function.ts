@@ -6,7 +6,7 @@ function uploadAdapter(loader: any) {
       return new Promise((resolve, reject) => {
         loader.file.then(async (file: any) => {
           try {
-            const res = await imageAPIClient.upload(file);
+            const res = await imageAPIClient.mediaUpload(file);
 
             if (res?.data?.url) {
               return resolve({

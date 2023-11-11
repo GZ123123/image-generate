@@ -13,6 +13,7 @@ import {
 import { IParams, IText } from "src/common/interfaces";
 import { IMBuilderPageProps } from "../types";
 import { IImageResponse } from "src/apis/image/types";
+import { MBookClient } from 'src/modules/book/components/MBookClient';
 
 const defaultText = () => [
   { id: uniqueId("text_"), value: "", exclude: false, multiPrompt: false },
@@ -82,6 +83,7 @@ export const BuilderPage = ({
           params={paramValues}
           onReset={onReset}
         />
+        <MBookClient />
       </div>
       <div className="w-full lg:w-2/3">
         <CTabs items={TabItems} />

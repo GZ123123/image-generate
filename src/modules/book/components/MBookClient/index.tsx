@@ -84,7 +84,7 @@ export const MBookClient = () => {
               />
               <button 
                 type="submit" 
-                className="appearance-none block w-full sm:w-1/2 md:w-1/3 py-2.5 px-4 bg-orange-500 rounded text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
+                className="appearance-none block w-auto py-2.5 px-4 bg-orange-500 rounded text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
               >
                 Send it to me
               </button>
