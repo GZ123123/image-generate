@@ -23,4 +23,12 @@ export const cmsNavigations: INavigationItems = [
     path: CMS_ROUTES["CATEGORY"]["INDEX"]["path"],
     title: CMS_ROUTES["CATEGORY"]["INDEX"]["title"],
   },
+  {
+    path: CMS_ROUTES["BLOG_COMMENT"]["INDEX"]["path"],
+    title: CMS_ROUTES["BLOG_COMMENT"]["INDEX"]["title"],
+  },
+  {
+    path: CMS_ROUTES["BOOK"]["INDEX"]["path"],
+    title: CMS_ROUTES["BOOK"]["INDEX"]["title"],
+  },
 ];

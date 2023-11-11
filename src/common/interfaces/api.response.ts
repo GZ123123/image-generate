@@ -5,6 +5,11 @@ export interface IAPIResponse<TData extends any> {
   errors: string | string[] | null;
 }
 
+export interface ICursorPagination<TData extends any> {
+  items: TData[];
+  next_cursor: string | null;
+}
+
 export interface IPagination<TData extends any> {
   pages: number;
 
@@ -17,4 +22,8 @@ export interface IPagination<TData extends any> {
 
 export type IPaginationResponse<TData extends any> = IAPIResponse<
   IPagination<TData>
+>;
+
+export type ICursorPaginationResponse<TData extends any> = IAPIResponse<
+  ICursorPagination<TData>
 >;

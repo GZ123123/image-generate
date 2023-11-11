@@ -73,4 +73,24 @@ export const CMS_ROUTES = {
       title: "Update Blogs",
     },
   },
+  BLOG_COMMENT: {
+    INDEX: {
+      path: "/cms/blog-comments",
+      title: "Blog Comments",
+    },
+  },
+  BOOK: {
+    INDEX: {
+      path: "/cms/books",
+      title: "Books",
+    },
+    CREATE: {
+      path: "/cms/books/form",
+      title: "Create Books",
+    },
+    UPDATE: {
+      path: "/cms/books/form/[id]",
+      title: "Update Books",
+    },
+  },
 };
