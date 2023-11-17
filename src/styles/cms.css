@@ -20,6 +20,10 @@
   padding: inherit;
 }
 
+.ck-content a {
+  text-decoration: underline;
+}
+
 .MuiFormControl-root .MuiInputBase-root {
   padding: 4px 8px;
 }

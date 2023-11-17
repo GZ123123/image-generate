@@ -2,9 +2,9 @@ import { Tab } from "@headlessui/react";
 import { classNames } from "src/utils/class-names";
 import { ICTabProps } from "./types";
 
-export const CTabs = ({ items, className }: ICTabProps) => {
+export const CTabs = ({ items, className, defaultIndex }: ICTabProps) => {
   return (
-    <Tab.Group>
+    <Tab.Group defaultIndex={defaultIndex}>
       <Tab.List
         className={classNames(
           className,
