@@ -101,7 +101,9 @@ export default function Builder({ initialCategory, fallback }: IBuilderProps) {
 export async function getServerSideProps(): Promise<{ props: IBuilderProps }> {
   const categories = await categoryAPIClient.get();
 
-  const initialCategory = categories.data[0]._id;
+  // const initialCategory = categories.data[0]._id;
+  const initialCategory = 
+    categories.data?.find((category) => category.name === 'Layouts')?._id ?? categories.data[0]._id;
 
   const images = await imageAPIClient.get({ category_id: initialCategory });
 
