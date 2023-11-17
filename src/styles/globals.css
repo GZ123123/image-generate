@@ -156,6 +156,10 @@ figure.image.image-style-side {
   max-width: 100%;
 }
 
+.ck-content a {
+  text-decoration: underline;
+}
+
 .dark input {
   background-color: transparent;
 }

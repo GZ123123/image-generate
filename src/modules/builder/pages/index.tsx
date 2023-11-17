@@ -86,7 +86,7 @@ export const BuilderPage = ({
         <MBookClient className="flex-col gap-6" borderColor="border-gray-300" />
       </div>
       <div className="w-full lg:w-2/3">
-        <CTabs items={TabItems} />
+        <CTabs items={TabItems} defaultIndex={1} />
       </div>
     </div>
   );
